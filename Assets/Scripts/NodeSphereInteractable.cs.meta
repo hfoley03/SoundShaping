@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 779cf0fdd0591da4ba30aa3b861a2521
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_InteractionManager: {instanceID: 0}
+  - m_CustomReticle: {instanceID: 0}
+  - hostTransform: {instanceID: 0}
+  - constraintsManager: {instanceID: 0}
+  - testCheck: {fileID: 1892803468694398487, guid: 72e6f891b7453574bbff5dae4e018f33, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
