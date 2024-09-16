@@ -19,7 +19,6 @@ public class TMTManager : MonoBehaviour
 	public GameObject TMTNode;
     private int TMTNodeCounter = 1;
 	public Vector3 origin;
-
 	private Vector3[] vectors;
 	private GameObject[] TMT_Nodes;
 
@@ -232,7 +231,6 @@ public class TMTManager : MonoBehaviour
 
 	}
 
-
 	public void registerNodeHit(int nodeNumber)
     {
 		//Debug.Log(nodeNumber);
@@ -294,8 +292,6 @@ public class TMTManager : MonoBehaviour
 			LogManager.Instance.tmt_numCorrectHitsStreak = currentStreak;
 		}
 	}
-
-
 
 	public void noteSelecter()
 	{

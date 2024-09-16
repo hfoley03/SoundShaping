@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class AudioReactive : MonoBehaviour
 {
-    public Material noteNodeMaterialOff;
-    public Material noteNodeMaterialOn;
-
     private Color offColor;
     private Color onColor;
     private bool firstTime = true;
-
-
-
 
     private Coroutine timerCoroutine;
 
@@ -21,8 +15,7 @@ public class AudioReactive : MonoBehaviour
         {
             StopCoroutine(timerCoroutine);
         }
-        timerCoroutine = StartCoroutine(TimerCoroutine());
-        
+        timerCoroutine = StartCoroutine(TimerCoroutine());   
     }
 
     private IEnumerator TimerCoroutine()
@@ -40,14 +33,10 @@ public class AudioReactive : MonoBehaviour
 
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         onColor = Color.white;
     }
-
-
 
     void modMaterial(float swell_)
     {
@@ -58,7 +47,6 @@ public class AudioReactive : MonoBehaviour
         }
         Color lerpColor = Color.Lerp(offColor, onColor, swell_);
         gameObject.GetComponent<MeshRenderer>().material.SetColor("_Color", lerpColor);
-
     }
 
 

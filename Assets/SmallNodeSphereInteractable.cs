@@ -10,22 +10,6 @@ using UnityEngine.XR;
 
 public class SmallNodeSphereInteractable : NodeSphereInteractable
 {
-
-    /*    protected override void OnHoverEntered(HoverEnterEventArgs args)
-        {
-            base.OnHoverEntered(args);
-            //this.transform.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
-            transform.localScale = new Vector3(0.015f, 0.015f, 0.015f);
-        }
-
-        protected override void OnHoverExited(HoverExitEventArgs args)
-        {
-            base.OnHoverExited(args);
-            //this.transform.GetComponent<Renderer>().material.color = new Color(255, 255, 255);
-            transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-
-        }*/
-
     [Obsolete]
     protected override void OnHoverEntered(XRBaseInteractor interactor)
     {
@@ -33,7 +17,6 @@ public class SmallNodeSphereInteractable : NodeSphereInteractable
         if (interactor.GetType().ToString() == "MixedReality.Toolkit.Input.GrabInteractor")
         {
             transform.localScale = new Vector3(0.015f, 0.015f, 0.015f);
-
         }
     }
     [Obsolete]
