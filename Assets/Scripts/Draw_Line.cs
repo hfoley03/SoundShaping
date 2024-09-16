@@ -9,7 +9,6 @@ public class Draw_Line : MonoBehaviour
     private bool meshColliderEnabled = true;
 
     GameObject brushInstance;
-
     public GameObject brushUser;
     public GameObject brushBezier;
     public GameObject noteNode;
@@ -45,31 +44,20 @@ public class Draw_Line : MonoBehaviour
     GameObject groupParent;
     GameObject grandParent;
 
-    // TO DO ADD RIST ROATION TO CREATE NODE BEHAVEIOUR FROM DRAW LINE 3 SCRIPT 
-
-    // Start is called before the first frame update
     void Start()
     {
        colourDict = new Dictionary<string, Material>()
        {
             {"blue", blue },
             {"red", red },
-            { "green", green }, // yellow, purple, pink, orange
+            { "green", green },
             {"yellow", yellow},
             {"purple", purple },
             {"pink", pink },
            {"orange", orange }
-
        };
-
         setColour("orange");
     }
-
-    // Update is called once per frame
-/*    void Update()
-    {
-        
-    }*/
 
     public void setColour(string col)
     {
@@ -120,16 +108,10 @@ public class Draw_Line : MonoBehaviour
         indexPos = pos;
     }
 
-    // Update is called once per frame
     public void CreateBrush()
     {
-        //  Debug.Log("Draw Line Create Brush");
-        //Debug.Log("current state: " + InteractionManager.Instance.getCurrentState());
-        //Debug.Log("left state: " + InteractionManager.Instance.lhState);
-        //Debug.Log("right state: " + InteractionManager.Instance.rhState);
-
         brushInstance = Instantiate(brushUser);
-        currentLineRenderer = brushInstance.GetComponent<LineRenderer>(); //<LineRenderer>
+        currentLineRenderer = brushInstance.GetComponent<LineRenderer>();
         currentLineRenderer.material = currentColour;
         lastPos = indexPos;
         currentLineRenderer.SetPosition(0, indexPos);
@@ -138,10 +120,7 @@ public class Draw_Line : MonoBehaviour
 
         CreateGrandparent();
         CreateParent();
-       // if (GameManager.Instance.gameMode == GameManager.GameMode.OpenEnded)
-       // {
-            CreateFirstNode();
-       // }
+        CreateFirstNode();
     }
 
     void CreateFirstNode()
@@ -191,7 +170,6 @@ public class Draw_Line : MonoBehaviour
 
     public void StopDrawing(bool fromWrist)
     {
-        //Debug.Log("___Stop Drawing");
         DrawnLineToBeziers(fromWrist);
         currentLineRenderer = null;
     }
@@ -199,7 +177,6 @@ public class Draw_Line : MonoBehaviour
     public void WristSplit()
     {
         StopDrawing(true);
-
         GameObject brushInstance = Instantiate(brushUser);
         currentLineRenderer = brushInstance.GetComponent<LineRenderer>(); //<LineRenderer>
         currentLineRenderer.material = currentColour;
@@ -207,27 +184,21 @@ public class Draw_Line : MonoBehaviour
         currentLineRenderer.SetPosition(0, indexPos);
         currentLineRenderer.SetPosition(1, indexPos);
         lastPos = indexPos;
-
         CreateParent();
     }
 
-
     void CreateGrandparent() 
     {     
-        //lineGrandparent
         grandParent = Instantiate(lineGrandparent);
         grandParent.transform.name = "GrandParent_" + InteractionManager.Instance.getGlobalGrandParentCounter();
         grandParent.GetComponent<LineGrandparent>().grandParentNumber = InteractionManager.Instance.getGlobalGrandParentCounter();
         InteractionManager.Instance.incrementGlobalGrandParentCounter();
         grandParent.transform.SetParent(userDrawnGroup.transform);
-
         LogManager.Instance.IncrementNumLines();
     }
 
-
     void CreateParent()
     {
-        // init parent 
         groupParent = Instantiate(lineGroupParent);
         groupParent.transform.name = "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_parent";  // lineCounter
         groupParent.GetComponent<LineGroupScript>().lineNumber = InteractionManager.Instance.getGlobalLineCounter();
@@ -238,7 +209,6 @@ public class Draw_Line : MonoBehaviour
     void DrawnLineToBeziers(bool fromWrist)
     {
         // get current line's points, conv to list
-
         Vector3[] currentPoints = new Vector3[currentLineRenderer.positionCount];
         currentLineRenderer.GetPositions(currentPoints);
         List<Vector3> currentPointsList = currentPoints.ToList();
@@ -256,7 +226,6 @@ public class Draw_Line : MonoBehaviour
 
             DrawBezier(bezPoints, groupParent);
             
-
                 if (n > 0 && n < curves.Length) //c.l -1
                 {
                     GameObject sphereNodeInstanceP0;
@@ -316,7 +285,6 @@ public class Draw_Line : MonoBehaviour
                         sphereNodeInstanceP3.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.EndNoteNode);
                     }
                 }
-
             }
             
             segmentCounter++;
@@ -327,8 +295,6 @@ public class Draw_Line : MonoBehaviour
         Destroy(currentLineRenderer);
         Destroy(brushInstance);
 
-
-        //grandParent.GetComponent<LineGrandparent>().setupChildrenForSuccess();
         if (!fromWrist)
         {
             grandParent.GetComponent<LineGrandparent>().setup = true;
@@ -357,9 +323,6 @@ public class Draw_Line : MonoBehaviour
 
         if (meshColliderEnabled)
         {
-
-            //Debug.Log("finna make a mesh not a mess");
-
             bezierLineRenderer.useWorldSpace = false;
 
             MeshCollider meshCollider = brushInstance.AddComponent<MeshCollider>();
@@ -368,10 +331,7 @@ public class Draw_Line : MonoBehaviour
             bezierLineRenderer.endWidth = 0.05f;
 
             bezierLineRenderer.BakeMesh(mesh);
-            // bezierLineRenderer.BakeMesh(mesh, Camera.main, false);
             meshCollider.sharedMesh = mesh;
-            //meshCollider.convex = true;
-            //meshCollider.sharedMesh.w
             bezierLineRenderer.startWidth = 0.008f;  //0.01
             bezierLineRenderer.endWidth = 0.008f;
 

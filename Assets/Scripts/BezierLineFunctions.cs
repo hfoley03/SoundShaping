@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// original function in Matlab taken from Dr. Murtaza Ali Khan Dr. Khan
+// https://uk.mathworks.com/matlabcentral/fileexchange/15542-cubic-bezier-least-square-fitting
+// ported from matlab to c#
+// Further adapted for intended purpose in this project
+
 public class BezierLineFunctions : MonoBehaviour
 {
-    //Dr. Khan, approx of data using cubic Bezier curve least square fittig, ported from matlab to c#
-    // Further adapted for intended purpose in this project
+    // Approximation of data using cubic Bezier curve least square fitting
     static public Vector3[] BezierInterp(Vector3 P0, Vector3 P1, Vector3 P2, Vector3 P3, LineRenderer currentLineRenderer, int numOfCurves)
     {
         int length = currentLineRenderer.positionCount;
