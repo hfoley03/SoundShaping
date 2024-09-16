@@ -19,8 +19,6 @@ public class NoteNodeSphereInteractable : NodeSphereInteractable
         LogManager.Instance.oe_numNoteNodes++;
     }
 
-
-
     [Obsolete]
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
@@ -58,29 +56,9 @@ public class NoteNodeSphereInteractable : NodeSphereInteractable
         }
     }
 
-/*    protected override void OnHoverExited(XRBaseInteractor interactor)
-    {
-        base.OnHoverExited(interactor);
-
-*//*        if (interactor is FuzzyGazeInteractor gaze)
-        {
-            string msg = "OnHoverExited Fuzzy " + Time.time + " " + transform.name + " Parent" + transform.parent.name;
-            Debug.Log(msg);
-            EyeTrackingFileMaker.Instance.appendText(msg);
-        }*//*
-    }*/
-
     private void OnCollisionEnter(Collision collision)
-    {
-/*        Debug.LogWarning("thing im hittings parent name: " + collision.gameObject.transform.parent.parent.name);
-        Debug.LogWarning("thing im hittings  name: " + collision.gameObject.transform.name);
-
-        Debug.LogWarning("collision enter");*/
-        //Debug.LogWarning("rigid vel " + collision.);
-        
-
-   
-            Debug.Log("my  name: " + transform.name);
+    {   
+        Debug.Log("my  name: " + transform.name);
         Debug.Log(collision.gameObject.transform.parent.parent.name == transform.parent.parent.name);
 
         if (collision.gameObject.transform.parent.parent.name == transform.parent.parent.name)
@@ -96,12 +74,7 @@ public class NoteNodeSphereInteractable : NodeSphereInteractable
                     LogManager.Instance.IncrementNumDelete();
                     Destroy(transform.parent.parent.gameObject);
                 }
-
             }
         }
-
     }
-    
-
-
 }

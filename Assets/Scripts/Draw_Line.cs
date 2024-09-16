@@ -248,8 +248,6 @@ public class Draw_Line : MonoBehaviour
                     sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetNodeNumber(0);
                     sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetLineNumber(InteractionManager.Instance.getGlobalLineCounter());
                     sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.SmallNode);
-
-
                 }
 
             //IF IF THE SEGMENT, ADD NODE TO END

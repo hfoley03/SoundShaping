@@ -28,8 +28,7 @@ public class LineGrandparent : MonoBehaviour
         //Debug.Log("Hello from Grandad + " + grandParentNumber + " layer " + gameObject.layer);
     }
 
-    // Update is called once per frame
-    void Update()  //change this to a co routine and remove update
+    void Update()
     {
         if (setup)
         {
@@ -44,7 +43,6 @@ public class LineGrandparent : MonoBehaviour
                     {
                         CheckChildren();
                     }
-                    //setupChildrenForSuccess();
                 }
             }
         }
@@ -55,8 +53,6 @@ public class LineGrandparent : MonoBehaviour
         Debug.Log("check kids");
         for (int i = 0; i < transform.childCount; i++)
         {
-            //Debug.Log(transform.GetChild(i).childCount);
-
             if (transform.GetChild(0).childCount < 2)
             {
                 Destroy(gameObject);
@@ -74,33 +70,8 @@ public class LineGrandparent : MonoBehaviour
                     }
                 }
             }
-
-
         }
         setup = false;
     }
 
-    public void setupChildrenForSuccess() {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Transform parent = transform.GetChild(i);
-            Debug.Log(parent.name);
-            Debug.Log(parent.childCount);
-            for(int j = 0; j < parent.childCount; j++)
-            {
-                NodeSphereInteractable comp;
-                if(parent.GetChild(j).TryGetComponent<NodeSphereInteractable>(out comp))
-                {
-                    Debug.Log("YESSSS");
-                    comp.linesSetUp();
-                }
-            }
-        }
-    }
-
-
-    private void nodeSetups()
-    {
-
-    }
 }
