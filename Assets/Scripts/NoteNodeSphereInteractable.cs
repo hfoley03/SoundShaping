@@ -65,11 +65,11 @@ public class NoteNodeSphereInteractable : NodeSphereInteractable
         {
             if (collision.gameObject.transform.name.StartsWith("Node"))
             {
-                if (InteractionManager.Instance.lhState == InteractionManager.HandState.Sculpting && InteractionManager.Instance.rhState == InteractionManager.HandState.Sculpting) //(InteractionManager.Instance.lhState == InteractionManager.HandState.Sculpting && 
+                if (InteractionManager.Instance.lhState == InteractionManager.InteractionState.Sculpting && InteractionManager.Instance.rhState == InteractionManager.InteractionState.Sculpting) //(InteractionManager.Instance.lhState == InteractionManager.InteractionState.Sculpting && 
                 {
                     InteractionManager.Instance.finishedSculpting = false;
-                    InteractionManager.Instance.rhState = InteractionManager.HandState.Idle;
-                    InteractionManager.Instance.lhState = InteractionManager.HandState.Idle;
+                    InteractionManager.Instance.rhState = InteractionManager.InteractionState.Idle;
+                    InteractionManager.Instance.lhState = InteractionManager.InteractionState.Idle;
                     Debug.Log("delete line");
                     LogManager.Instance.IncrementNumDelete();
                     Destroy(transform.parent.parent.gameObject);

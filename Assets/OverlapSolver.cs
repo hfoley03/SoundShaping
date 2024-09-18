@@ -129,8 +129,8 @@ public class OverlapSolver : MonoBehaviour
                             {
                                 Debug.Log("delete!!!");
                                 InteractionManager.Instance.finishedSculpting = false;
-                                InteractionManager.Instance.rhState = InteractionManager.HandState.Idle;
-                                InteractionManager.Instance.lhState = InteractionManager.HandState.Idle;
+                                InteractionManager.Instance.rhState = InteractionManager.InteractionState.Idle;
+                                InteractionManager.Instance.lhState = InteractionManager.InteractionState.Idle;
                                 LogManager.Instance.IncrementNumDelete();
                                 Destroy(transform.parent.parent.gameObject);
                             }

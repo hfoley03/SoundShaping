@@ -89,23 +89,16 @@ public class InteractionManager : MonoBehaviour
         Sculpting,
     }
 
-    public enum HandState
-    {
-        Idle,
-        Drawing,
-        Sculpting,
-    }
-
-    public HandState rhState;
-    public HandState lhState;
+    public InteractionState rhState;
+    public InteractionState lhState;
     private InteractionState currentState;
 
     private void Awake()
     {
         _instance = this;
         currentState = InteractionState.Idle;
-        rhState = HandState.Idle;
-        lhState = HandState.Idle;
+        rhState = InteractionState.Idle;
+        lhState = InteractionState.Idle;
         Debug.Log("hi from the InteractionManager");
     }
     void Start()
@@ -167,7 +160,7 @@ public class InteractionManager : MonoBehaviour
         leftStateCubeColour();
         rightStateCubeColour();
 
-        if(rhState == HandState.Sculpting && lhState == HandState.Sculpting)
+        if(rhState == InteractionState.Sculpting && lhState == InteractionState.Sculpting)
         {
             //block overlapsolvers
             allowOveralSolver = false;
@@ -185,7 +178,7 @@ public class InteractionManager : MonoBehaviour
     {
         float handY = Camera.main.transform.position.y - rightPoseIndexTip.Position.y;
 
-        if ((pinchAmount > 0.8f) && rhState != HandState.Sculpting && (handY < armLength))  // rightIsPinch
+        if ((pinchAmount > 0.8f) && rhState != InteractionState.Sculpting && (handY < armLength))  // rightIsPinch
         {
             Vector3 brushPosition = rightPoseIndexTip.Position;
 
@@ -203,14 +196,14 @@ public class InteractionManager : MonoBehaviour
 
             if (finishedSculpting)
             {
-                if (rhState == HandState.Idle && currentState == InteractionState.Idle)
+                if (rhState == InteractionState.Idle && currentState == InteractionState.Idle)
                 {
                     //create brush
-                    rhState = HandState.Drawing;
+                    rhState = InteractionState.Drawing;
                     currentState = InteractionState.Drawing;
                     rightDrawLineScript.CreateBrush();
                 }
-                else if (rhState == HandState.Drawing)
+                else if (rhState == InteractionState.Drawing)
                 {
                     rightDrawLineScript.AddPoint();
 
@@ -226,10 +219,10 @@ public class InteractionManager : MonoBehaviour
                 }
             }
         }
-        else if (rhState == HandState.Drawing) //right hand was drawing but is no longer pinching 
+        else if (rhState == InteractionState.Drawing) //right hand was drawing but is no longer pinching 
         {
             //Stop Drawing
-            rhState = HandState.Idle;
+            rhState = InteractionState.Idle;
             currentState = InteractionState.Idle;
             rightDrawLineScript.StopDrawing(false);
         }
@@ -239,7 +232,7 @@ public class InteractionManager : MonoBehaviour
     {
         float handY = Camera.main.transform.position.y - leftPoseIndexTip.Position.y;
 
-        if ((pinchAmount > 0.8f) && lhState != HandState.Sculpting && (handY < armLength))
+        if ((pinchAmount > 0.8f) && lhState != InteractionState.Sculpting && (handY < armLength))
             Vector3 brushPos = leftPoseIndexTip.Position;
             if (GameManager.Instance.gameMode == GameManager.GameMode.TMT)
             {
@@ -255,14 +248,14 @@ public class InteractionManager : MonoBehaviour
 
             if (finishedSculpting)
             {
-                if (lhState == HandState.Idle && currentState == InteractionState.Idle)
+                if (lhState == InteractionState.Idle && currentState == InteractionState.Idle)
                 {
                     //create brush
-                    lhState = HandState.Drawing;
+                    lhState = InteractionState.Drawing;
                     currentState = InteractionState.Drawing;
                     leftDrawLineScript.CreateBrush();
                 }
-                else if (lhState == HandState.Drawing)
+                else if (lhState == InteractionState.Drawing)
                 {
 
                     leftDrawLineScript.AddPoint();
@@ -279,10 +272,10 @@ public class InteractionManager : MonoBehaviour
                 }
             }
         }
-        else if (lhState == HandState.Drawing) //right hand was drawing but is no longer pinching 
+        else if (lhState == InteractionState.Drawing) //right hand was drawing but is no longer pinching 
         {
             //Stop Drawing
-            lhState = HandState.Idle;
+            lhState = InteractionState.Idle;
             currentState = InteractionState.Idle;
             leftDrawLineScript.StopDrawing(false);
         }
@@ -341,15 +334,15 @@ public class InteractionManager : MonoBehaviour
     {
         switch (rhState)
         {
-            case HandState.Idle:
+            case InteractionState.Idle:
                 //set col;
                 rightStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
                 break;
-            case HandState.Drawing:
+            case InteractionState.Drawing:
                 //set coll
                 rightStateCube.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
                 break;
-            case HandState.Sculpting:
+            case InteractionState.Sculpting:
                 rightStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 255);
                 break;
         }
@@ -359,15 +352,15 @@ public class InteractionManager : MonoBehaviour
     {
         switch (lhState)
         {
-            case HandState.Idle:
+            case InteractionState.Idle:
                 //set col;
                 leftStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
                 break;
-            case HandState.Drawing:
+            case InteractionState.Drawing:
                 //set coll
                 leftStateCube.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
                 break;
-            case HandState.Sculpting:
+            case InteractionState.Sculpting:
                 leftStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 255);
                 break;
         }

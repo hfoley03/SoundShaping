@@ -225,12 +225,12 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
                     if (interactor.transform.parent.name.Contains("Right"))
                     {
                         handed = "right";
-                        InteractionManager.Instance.rhState = InteractionManager.HandState.Sculpting;
+                        InteractionManager.Instance.rhState = InteractionManager.InteractionState.Sculpting;
                     }
                     else
                     {
                         handed = "left";
-                        InteractionManager.Instance.lhState = InteractionManager.HandState.Sculpting;
+                        InteractionManager.Instance.lhState = InteractionManager.InteractionState.Sculpting;
                     }
                     // im allowed to sculpt so normal behaviour
                 }
@@ -264,11 +264,11 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
                     InteractionManager.Instance.setCurrentState(InteractionManager.InteractionState.Idle);
                     if (handed == "left")
                     {
-                        InteractionManager.Instance.lhState = InteractionManager.HandState.Idle;
+                        InteractionManager.Instance.lhState = InteractionManager.InteractionState.Idle;
                     }
                     else
                     {
-                        InteractionManager.Instance.rhState = InteractionManager.HandState.Idle;
+                        InteractionManager.Instance.rhState = InteractionManager.InteractionState.Idle;
                     }
 
                 }
@@ -295,12 +295,12 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
                     if (interactor.transform.parent.name.Contains("Right"))
                     {
                         handed = "right";
-                        InteractionManager.Instance.rhState = InteractionManager.HandState.Sculpting;
+                        InteractionManager.Instance.rhState = InteractionManager.InteractionState.Sculpting;
                     }
                     else
                     {
                         handed = "left";
-                        InteractionManager.Instance.lhState = InteractionManager.HandState.Sculpting;
+                        InteractionManager.Instance.lhState = InteractionManager.InteractionState.Sculpting;
                     }
                     base.OnSelectEntered(interactor);
                 }
@@ -309,13 +309,13 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
                 {
                     AllowedManipulations = MixedReality.Toolkit.TransformFlags.None;
                     Debug.Log("to idel");
-                    if (InteractionManager.Instance.rhState != InteractionManager.HandState.Drawing)
+                    if (InteractionManager.Instance.rhState != InteractionManager.InteractionState.Drawing)
                     {
-                        InteractionManager.Instance.rhState = InteractionManager.HandState.Idle;
+                        InteractionManager.Instance.rhState = InteractionManager.InteractionState.Idle;
                     }
-                    if (InteractionManager.Instance.lhState != InteractionManager.HandState.Drawing)
+                    if (InteractionManager.Instance.lhState != InteractionManager.InteractionState.Drawing)
                     {
-                        InteractionManager.Instance.lhState = InteractionManager.HandState.Idle;
+                        InteractionManager.Instance.lhState = InteractionManager.InteractionState.Idle;
                     }
                 }
                 else if (InteractionManager.Instance.getCurrentState() == InteractionManager.InteractionState.Sculpting)
@@ -326,16 +326,16 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
 
                     if (interactor.transform.parent.name.Contains("Right"))
                     {
-                        if (InteractionManager.Instance.rhState == InteractionManager.HandState.Idle)
+                        if (InteractionManager.Instance.rhState == InteractionManager.InteractionState.Idle)
                         {
-                            InteractionManager.Instance.rhState = InteractionManager.HandState.Sculpting;
+                            InteractionManager.Instance.rhState = InteractionManager.InteractionState.Sculpting;
                         }
                     }
                     else if (interactor.transform.parent.name.Contains("Left"))
                     {
-                        if (InteractionManager.Instance.lhState == InteractionManager.HandState.Idle)
+                        if (InteractionManager.Instance.lhState == InteractionManager.InteractionState.Idle)
                         {
-                            InteractionManager.Instance.lhState = InteractionManager.HandState.Sculpting;
+                            InteractionManager.Instance.lhState = InteractionManager.InteractionState.Sculpting;
                         }
                     }
                     base.OnSelectEntered(interactor);
@@ -363,12 +363,12 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
                     InteractionManager.Instance.setCurrentState(InteractionManager.InteractionState.Idle);
                     if (handed == "left")
                     {
-                        InteractionManager.Instance.lhState = InteractionManager.HandState.Idle;
+                        InteractionManager.Instance.lhState = InteractionManager.InteractionState.Idle;
                         InteractionManager.Instance.leftIsPinch = false;
                     }
                     else
                     {
-                        InteractionManager.Instance.rhState = InteractionManager.HandState.Idle;
+                        InteractionManager.Instance.rhState = InteractionManager.InteractionState.Idle;
                         InteractionManager.Instance.rightIsPinch = false;
                     }
                 }
