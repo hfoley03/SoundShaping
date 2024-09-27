@@ -28,7 +28,6 @@ public class InteractionManager : MonoBehaviour
     private bool leftIsReadyPinch = false;
     public bool leftIsPinch = false;
     private float leftPinchAmount = 0.0f;
-
     private bool rightIsReadyPinch = false;
     public bool rightIsPinch = false;
     private float rightPinchAmount = 0.0f;
@@ -49,8 +48,6 @@ public class InteractionManager : MonoBehaviour
 
     private int globalLineCounter = 0;
     private int globalGrandParentCounter = 0;
-
-
     public GameObject currentStateCube;
     public GameObject leftStateCube;
     public GameObject rightStateCube;
@@ -91,12 +88,12 @@ public class InteractionManager : MonoBehaviour
 
     public InteractionState rhState;
     public InteractionState lhState;
-    private InteractionState currentState;
+    private InteractionState systemState;
 
     private void Awake()
     {
         _instance = this;
-        currentState = InteractionState.Idle;
+        systemState = InteractionState.Idle;
         rhState = InteractionState.Idle;
         lhState = InteractionState.Idle;
         Debug.Log("hi from the InteractionManager");
@@ -126,14 +123,11 @@ public class InteractionManager : MonoBehaviour
             sculptCoolDown();
         }
 
-        if (currentState == InteractionState.Idle || currentState == InteractionState.Drawing)
+        if (systemState != InteractionState.Sculpting && finishedSculpting == true)
         {
-            //true if idle or drawing
-            if (finishedSculpting)
-            {
+            //true if idle or drawing & finishee sculpting
                 RightHand(rightPinchAmount);
                 LeftHand(leftPinchAmount);
-            }
         }
 
         timer += Time.deltaTime;
@@ -196,11 +190,11 @@ public class InteractionManager : MonoBehaviour
 
             if (finishedSculpting)
             {
-                if (rhState == InteractionState.Idle && currentState == InteractionState.Idle)
+                if (rhState == InteractionState.Idle && systemState == InteractionState.Idle)
                 {
                     //create brush
                     rhState = InteractionState.Drawing;
-                    currentState = InteractionState.Drawing;
+                    systemState = InteractionState.Drawing;
                     rightDrawLineScript.CreateBrush();
                 }
                 else if (rhState == InteractionState.Drawing)
@@ -223,7 +217,7 @@ public class InteractionManager : MonoBehaviour
         {
             //Stop Drawing
             rhState = InteractionState.Idle;
-            currentState = InteractionState.Idle;
+            systemState = InteractionState.Idle;
             rightDrawLineScript.StopDrawing(false);
         }
     }
@@ -248,11 +242,11 @@ public class InteractionManager : MonoBehaviour
 
             if (finishedSculpting)
             {
-                if (lhState == InteractionState.Idle && currentState == InteractionState.Idle)
+                if (lhState == InteractionState.Idle && systemState == InteractionState.Idle)
                 {
                     //create brush
                     lhState = InteractionState.Drawing;
-                    currentState = InteractionState.Drawing;
+                    systemState = InteractionState.Drawing;
                     leftDrawLineScript.CreateBrush();
                 }
                 else if (lhState == InteractionState.Drawing)
@@ -378,7 +372,6 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
-    // returns true if the previous and current angle have a difference greater than angleAmt
     public bool degreeDiff(XRNode thisNode, float current, float angleAmt)
     {
         float previous = 0.0f;
@@ -391,8 +384,8 @@ public class InteractionManager : MonoBehaviour
             previous = lastAngleR;
         }
 
-        float diff = 180 - Mathf.Abs(Mathf.Abs(previous - current) - 180);  // the difference between the current and previous wrist angle, in either direction
-        bool changed = diff > angleAmt; //is difference greater than the threshold angle
+        float diff = 180 - Mathf.Abs(Mathf.Abs(previous - current) - 180); 
+        bool changed = diff > angleAmt;
 
         if (changed)
         {

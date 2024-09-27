@@ -220,35 +220,36 @@ public class Draw_Line : MonoBehaviour
 
         for (int n = 0; n < curves.Length; n++)
         {
-            Vector3[] bezPoints = BezierLineFunctions.BezierInterp(curves[n].p0, curves[n].p1, curves[n].p2, curves[n].p3, currentLineRenderer, curves.Length);
+            Vector3[] bezPoints = BezierLineFunctions.BezierInterp(curves[n].p0, curves[n].p1, curves[n].p2, curves[n].p3, 
+                                                                    currentLineRenderer, curves.Length);
 
             float dist = Vector3.Distance(curves[n].p0, curves[n].p3);
 
             DrawBezier(bezPoints, groupParent);
             
-                if (n > 0 && n < curves.Length) //c.l -1
+            if (n > 0 && n < curves.Length) 
+            {
+                GameObject sphereNodeInstanceP0;
+                
+                if (GameManager.Instance.gameMode == GameManager.GameMode.TMT)
                 {
-                    GameObject sphereNodeInstanceP0;
-
-                    if (GameManager.Instance.gameMode == GameManager.GameMode.TMT)
-                    {
-                        sphereNodeInstanceP0 = Instantiate(smallNodeNonInteractable);
-                    }
-                    else
-                    {
-                        sphereNodeInstanceP0 = Instantiate(smallNode); //small
-                    }
-
-                    //NODE AT START OF EACH SEGEMENT
-                    sphereNodeInstanceP0.transform.position = curves[n].p0;
-                    sphereNodeInstanceP0.name = "NodeP0_" + "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_Segment_" + segmentCounter;
-                    sphereNodeInstanceP0.transform.SetParent(groupParent.transform);
-                    sphereNodeInstanceP0.GetComponent<MeshRenderer>().material = currentColour;
-                    sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetSegmentNumber(segmentCounter);
-                    sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetNodeNumber(0);
-                    sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetLineNumber(InteractionManager.Instance.getGlobalLineCounter());
-                    sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.SmallNode);
+                    sphereNodeInstanceP0 = Instantiate(smallNodeNonInteractable);
                 }
+                else
+                {
+                    sphereNodeInstanceP0 = Instantiate(smallNode);
+                }
+
+                //NODE AT START OF EACH SEGEMENT
+                sphereNodeInstanceP0.transform.position = curves[n].p0;
+                sphereNodeInstanceP0.name = "NodeP0_" + "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_Segment_" + segmentCounter;
+                sphereNodeInstanceP0.transform.SetParent(groupParent.transform);
+                sphereNodeInstanceP0.GetComponent<MeshRenderer>().material = currentColour;
+                sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetSegmentNumber(segmentCounter);
+                sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetNodeNumber(0);
+                sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetLineNumber(InteractionManager.Instance.getGlobalLineCounter());
+                sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.SmallNode);
+            }
 
             //IF IF THE SEGMENT, ADD NODE TO END
             if (n == curves.Length - 1)

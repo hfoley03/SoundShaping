@@ -8,6 +8,11 @@ public class AudioReactive : MonoBehaviour
     private Color onColor;
     private bool firstTime = true;
 
+    void Start()
+    {
+        onColor = Color.white;
+    }
+
     private Coroutine timerCoroutine;
 
     public void startTimer() {
@@ -17,27 +22,18 @@ public class AudioReactive : MonoBehaviour
         }
         timerCoroutine = StartCoroutine(TimerCoroutine());   
     }
-
     private IEnumerator TimerCoroutine()
     {
         float duration = 2.0f;
         float elapsedTime = 0.0f;
 
         while (elapsedTime < duration) {
-            //Debug.Log("timer: " + elapsedTime);
             elapsedTime += Time.deltaTime;
             float colourTrans = Mathf.Clamp((1.0f - elapsedTime/2.0f), 0.0f, 0.5f);
             modMaterial(colourTrans);
             yield return null;
         }
-
     }
-
-    void Start()
-    {
-        onColor = Color.white;
-    }
-
     void modMaterial(float swell_)
     {
         if(firstTime == true)

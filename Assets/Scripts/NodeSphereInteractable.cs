@@ -118,14 +118,12 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
         switch (nodeType)
         {
             case NodeType.StartNoteNode:
-                // attached to one linenumber seg number 0
                 bezLineRendererName = "Line_" + lineNumber + "_Segment_" + segmentNumber;
                 line1 = GameObject.Find(bezLineRendererName);
                 lineRenderer1 = line1.GetComponent<LineRenderer>();
                 break;
 
             case NodeType.MiddleNoteNode:
-                // attached to this line number + seg number and the next line number seg 0
                 bezLineRendererName = "Line_" + lineNumber + "_Segment_" + segmentNumber;
                 line1 = GameObject.Find(bezLineRendererName);
                 lineRenderer1 = line1.GetComponent<LineRenderer>();
@@ -136,19 +134,17 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
 
                 int nextLineNumber = lineNumber + 1;
                 string name = "Line_" + nextLineNumber + "_parent";
-                Transform temp = this.transform.parent.parent.Find(name); // BAD FIND
+                Transform temp = this.transform.parent.parent.Find(name);
                 middleNodeNextLineParentComp = temp.GetComponent<LineGroupScript>();
                 break;
 
             case NodeType.EndNoteNode:
-                // attached to the this line number segment number
                 bezLineRendererName = "Line_" + lineNumber + "_Segment_" + segmentNumber;
                 line1 = GameObject.Find(bezLineRendererName);
                 lineRenderer1 = line1.GetComponent<LineRenderer>();
                 break;
 
             case NodeType.SmallNode:
-                // attached to this line number at seg number this plus seg number + 1
                 bezLineRendererName = "Line_" + lineNumber + "_Segment_" + (segmentNumber - 1);
                 line1 = GameObject.Find(bezLineRendererName);
                 lineRenderer1 = line1.GetComponent<LineRenderer>();
@@ -158,7 +154,6 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
                 lineRenderer2 = line2.GetComponent<LineRenderer>();
                 break;
         }
-       // Debug.Log(" set up complete " +  transform.name);
     }
 
     protected override void OnSelectExited(XRBaseInteractor interactor)

@@ -30,6 +30,7 @@ public class EXTOSCManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         transmitter = gameObject.AddComponent<OSCTransmitter>();
         transmitter.RemoteHost = "192.168.100.125";
         transmitter.RemotePort = 8001;
@@ -66,7 +67,7 @@ public class EXTOSCManager : MonoBehaviour
         receiver.Bind("/log/cg/vocal", LogCaregiverVocal);
         receiver.Bind("/log/cg/physical", LogCaregiverPhysical);
 
-        receiver.Bind("game/armlength", ArmLength);
+        receiver.Bind("/game/armlength", ArmLength);
 
         setupOSCLogs();
     }
@@ -247,20 +248,13 @@ public class EXTOSCManager : MonoBehaviour
         var value = message.Values[0].IntValue;
         if (value == 1)
         {
-            //GameManager.Instance.gameMode = GameManager.GameMode.OpenEnded;
             appendText("game mode = " + GameManager.Instance.gameMode.ToString());
-
-
             GameManager.Instance.SetGameMode(GameManager.GameMode.OpenEnded);
-
         }
         if (value == 2)
         {
-            //GameManager.Instance.gameMode = GameManager.GameMode.TMT;
             appendText("game mode = " + GameManager.Instance.gameMode.ToString());
-
             GameManager.Instance.SetGameMode(GameManager.GameMode.TMT);
-
         }
     }
 
@@ -324,22 +318,11 @@ public class EXTOSCManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //SendMessage();
-        
-    }
-
-    
-
     protected void TestMessageReceived(OSCMessage message)
     {
         Debug.Log("/test");
         Debug.Log(message);
     }
-
-
 
     void SendMessage()
     {

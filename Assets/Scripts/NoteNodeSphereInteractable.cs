@@ -65,7 +65,8 @@ public class NoteNodeSphereInteractable : NodeSphereInteractable
         {
             if (collision.gameObject.transform.name.StartsWith("Node"))
             {
-                if (InteractionManager.Instance.lhState == InteractionManager.InteractionState.Sculpting && InteractionManager.Instance.rhState == InteractionManager.InteractionState.Sculpting) //(InteractionManager.Instance.lhState == InteractionManager.InteractionState.Sculpting && 
+                if (InteractionManager.Instance.lhState == InteractionManager.InteractionState.Sculpting && 
+                    InteractionManager.Instance.rhState == InteractionManager.InteractionState.Sculpting)
                 {
                     InteractionManager.Instance.finishedSculpting = false;
                     InteractionManager.Instance.rhState = InteractionManager.InteractionState.Idle;

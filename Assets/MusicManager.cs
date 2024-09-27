@@ -64,16 +64,9 @@ public class MusicManager : MonoBehaviour
         {
             timer = 0f;
             currentChordNumber = GetNextChord();
-            //Debug.Log("next chord chosen    " + currentChordNumber);
             Sample_Player.Instance.setChordNumber(currentChordNumber);
             UpdateChordHistory();
-
             BackgroundMusicPlayer.Instance.bgAudioSources[currentChordNumber].Play();
-/*            if (BackgroundMusicPlayer.Instance.bgAudioSources[currentChordNumber].isPlaying) {
-                LogManager.Instance.AppendText("chord_bg_should be playing?");
-              //  Debug.Log("BG playing");
-            }*/
-         //   Debug.Log("chord updated to = ch" + BackgroundMusicPlayer.Instance.bgAudioSources[currentChordNumber].clip.name);
         }
     }
     public float setMasterVolume(float vol)
@@ -161,7 +154,6 @@ public class MusicManager : MonoBehaviour
 
         Regex regex = new Regex(@"\d+");
 
-       // Debug.Log("chord options " + chordOptions);
         if (Random.Range(0.0f, 1.0f) > 0.5f)
         {
             Match match = regex.Match(chordOptions.Item1);
