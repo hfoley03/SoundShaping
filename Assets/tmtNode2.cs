@@ -8,14 +8,10 @@ public class tmtNode2 : MonoBehaviour
 {
     public GameObject ball;
     private GameObject _ball;
-
     private MeshRenderer meshRenderer;
     public TextMeshPro text;
-
     public int nodeNumber = -1;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         _ball = Instantiate(ball);
@@ -28,17 +24,11 @@ public class tmtNode2 : MonoBehaviour
         _text.SetText(gameObject.name);
     }
 
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.transform.name == "TMT_Collider_Node(Clone)")
         {
-            //Debug.Log("collison with mesh collider of the line, node: " + nodeNumber);
             transform.parent.GetComponent<TMTManager>().registerNodeHit(nodeNumber);
-        }
-        else
-        {
-           // Debug.Log("unexpected collision at tmt node " + nodeNumber);
         }
     }
 
@@ -52,6 +42,5 @@ public class tmtNode2 : MonoBehaviour
         {
             meshRenderer.material.color = Color.green;
         }
-
     }
 }

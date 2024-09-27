@@ -44,17 +44,10 @@ public class LineManager : MonoBehaviour
         Debug.Log("hi from the line manager");
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
-
-    // Update is called once per frame
-/*    void Update()
-    {
-       //ebug.Log(currentState);
-    }*/
 
     public InteractionState getCurrentState()
     {

@@ -13,8 +13,6 @@ public class OverlapSolver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
         if(transform.TryGetComponent<SmallNodeSphereInteractable>(out smallScript))
         {
             scriptToDoWorkOn = smallScript;
@@ -131,8 +129,8 @@ public class OverlapSolver : MonoBehaviour
                             {
                                 Debug.Log("delete!!!");
                                 InteractionManager.Instance.finishedSculpting = false;
-                                InteractionManager.Instance.rhState = InteractionManager.HandState.Idle;
-                                InteractionManager.Instance.lhState = InteractionManager.HandState.Idle;
+                                InteractionManager.Instance.rhState = InteractionManager.InteractionState.Idle;
+                                InteractionManager.Instance.lhState = InteractionManager.InteractionState.Idle;
                                 LogManager.Instance.IncrementNumDelete();
                                 Destroy(transform.parent.parent.gameObject);
                             }

@@ -19,7 +19,6 @@ public class TMTManager : MonoBehaviour
 	public GameObject TMTNode;
     private int TMTNodeCounter = 1;
 	public Vector3 origin;
-
 	private Vector3[] vectors;
 	private GameObject[] TMT_Nodes;
 
@@ -232,11 +231,8 @@ public class TMTManager : MonoBehaviour
 
 	}
 
-
 	public void registerNodeHit(int nodeNumber)
     {
-		//Debug.Log(nodeNumber);
-
 		if (lastNodeHit != nodeNumber)
 		{
 			lastNodeHit = nodeNumber;
@@ -245,9 +241,8 @@ public class TMTManager : MonoBehaviour
 			{
 				//Debug.Log("Correct Hit " + nodeNumber);
 				TMT_Nodes[nodeNumber - 1].GetComponent<AudioSource>().Play();
-
-				nextCorrectNode++;
 				lastCorrectNode = nodeNumber;
+				nextCorrectNode++;
 				currentStreak++;
 				UpdateStreak();
 
@@ -261,7 +256,6 @@ public class TMTManager : MonoBehaviour
 				}
 
 				sphereColliderToDisable = TMT_Nodes[nodeNumber - 1].GetComponent<SphereCollider>();
-				//TMT_Nodes[nodeNumber - 1].GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 255, 0);
 				TMT_Nodes[nodeNumber - 1].GetComponent<tmtNode2>().setNodeColor(1);
 				if (nodeNumber - 2 > 0)
 				{
@@ -278,14 +272,12 @@ public class TMTManager : MonoBehaviour
 
 			}
 		}
-		else {
-			if (TMT_Nodes[nodeNumber - 2].GetComponent<SphereCollider>().enabled == true)
-            {
-				LogManager.Instance.tmt_numIncorrectHits++;
-			}
-
-
-		}
+		// else {
+		// 	if (TMT_Nodes[nodeNumber - 2].GetComponent<SphereCollider>().enabled == true)
+        //     {
+		// 		LogManager.Instance.tmt_numIncorrectHits++;
+		// 	}
+		// }
     }
 
 	private void UpdateStreak() {
@@ -294,8 +286,6 @@ public class TMTManager : MonoBehaviour
 			LogManager.Instance.tmt_numCorrectHitsStreak = currentStreak;
 		}
 	}
-
-
 
 	public void noteSelecter()
 	{

@@ -6,13 +6,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class LineInteractable : MixedReality.Toolkit.SpatialManipulation.ObjectManipulator
 {
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Line Interactable: " + transform.name);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (IsGazeHovered)

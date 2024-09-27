@@ -11,10 +11,7 @@ public class LineGroupScript : MonoBehaviour
 
     void Start()
     {
-/*        Debug.Log("Hi I am the LineGroupScript");
-        Debug.Log(this.name);
-        Debug.Log(this.GetInstanceID());
-        Debug.Log(this.transform.childCount);*/
+       Debug.Log("Hi I am the LineGroupScript");
     }
 
     public void PrintControlPoints(CubicBezier[] items)
@@ -25,7 +22,6 @@ public class LineGroupScript : MonoBehaviour
     public void setCurves(CubicBezier[] items)
     {
         curves = items;
-        //printCurvesInfo();
     }
 
     public CubicBezier[] getCurves()
@@ -41,39 +37,30 @@ public class LineGroupScript : MonoBehaviour
         }
     }
 
-
-
     public void updateControlPointsStartNode(LineRenderer lineRenderer, Vector3 newPosition, int segmentNumber, int nodeNumber, bool updateMesh)
     {
-       // Debug.Log("cp startnode: " + newPosition);
         curves[0].p0 = newPosition;
         updateLine(lineRenderer, segmentNumber, updateMesh);
     }
 
     public void updateControlPointsEndNode(LineRenderer lineRenderer, Vector3 newPosition, int segmentNumber, int nodeNumber, bool updateMesh)
     {
-       // Debug.Log("cp end node: " + newPosition);
-
         curves[segmentNumber].p3 = newPosition;
         updateLine(lineRenderer, segmentNumber, updateMesh);
     }
 
     public void updateControlPointsSmallNode(LineRenderer lineRenderer1, LineRenderer lineRenderer2, Vector3 newPosition, int segmentNumber, int nodeNumber, bool updateMesh)
     {
-        //Debug.Log("cp startnode: " + newPosition);
-
         curves[segmentNumber].p0 = newPosition;
         curves[segmentNumber - 1].p3 = newPosition;
         updateLine(lineRenderer1, segmentNumber, updateMesh);
         updateLine(lineRenderer2, segmentNumber - 1, updateMesh);
-
     }
 
     private void updateLine(LineRenderer lineRenderer, int segmentNumber, bool updateMesh)
     {
         Vector3[] bezPoints = BezierLineFunctions.BezierInterp(curves[segmentNumber].p0, curves[segmentNumber].p1, curves[segmentNumber].p2, curves[segmentNumber].p3, lineRenderer, 2);
 
-        
         lineRenderer.SetPositions(bezPoints);
 
         float dist = Vector3.Distance(curves[segmentNumber].p0, curves[segmentNumber].p3);
@@ -94,10 +81,8 @@ public class LineGroupScript : MonoBehaviour
         
     }
 
-
     public void destroyOldMeshMakeNewMesh(LineRenderer newLine, MeshCollider lineMeshCollider, GameObject lineToUpdate)
     {
-       // string meshName = lineMeshCollider.sharedMesh.name;
         Destroy(lineMeshCollider);
 
         newLine.useWorldSpace = false;
@@ -111,12 +96,5 @@ public class LineGroupScript : MonoBehaviour
         meshCollider.sharedMesh = mesh;
         newLine.startWidth = 0.01f;
         newLine.endWidth = 0.01f;
-
-        //meshCollider.sharedMesh.name = "Mesh_" + bezierLineRenderer.name;
     }
-
-
-
-
-
 }

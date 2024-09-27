@@ -66,12 +66,6 @@ public class EyeTrackingFileMaker : MonoBehaviour
             using (var writer = new StreamWriter(file))
             {
                 writer.Write("OSC Tracking Data");
-
-/*                foreach(string line in lines)
-                {
-                    writer.WriteLine(line);
-                }*/
-
             }
         }
     }
@@ -84,10 +78,8 @@ public class EyeTrackingFileMaker : MonoBehaviour
         {
             hitPointDisplayer.transform.position = hit.point;
             string msg = "hit " + hit.collider.name;// Time.time + " " + transform.name + " Parent" + transform.parent.name;
-           // Debug.Log(msg);
             appendText(msg);
         }
-
     }
 
     public void appendText(string newText)

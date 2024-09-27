@@ -1,0 +1,255 @@
+"X","Unnamed..0","Name","Artist","Section","Progression","EndDifferent","NumSectionChords","nonDiatonicChords","extendedChords"
+0,0,"Vertigo","Khalid","Intro","I-VI#-ii-I-v-ii-I","",4,2,0
+1,1,"Vertigo","Khalid","Verse ","VI#-ii-I-v-ii-I","",4,2,0
+2,2,"Vertigo","Khalid","Pre-Chorus","v-ii-I","",3,1,0
+3,3,"Vertigo","Khalid","Chorus","I-VI#-ii-I-v-ii-I","",4,2,0
+4,4,"Vertigo","Khalid","Interlude","I-VI#-ii-I-v-ii-I","",4,2,0
+5,5,"Vertigo","Khalid","Outro","I-VI#-ii-I-v-ii-I","",4,2,0
+0,0,"Delicate","Taylor Swift","Verse ","I-ii-vi-IV","",4,0,0
+1,1,"Delicate","Taylor Swift","Chorus ","I-ii-vi-IV","",4,0,0
+2,2,"Delicate","Taylor Swift","Post-Chorus ","I-ii-vi-IV","",4,0,0
+3,3,"Delicate","Taylor Swift","Bridge","iii-vi-V","",3,0,0
+4,4,"Delicate","Taylor Swift","Outro","I-ii-vi-IV","",4,0,0
+0,0,"Teardrops on My Guitar","Taylor Swift","Verse ","I-vi-IV-V","",4,0,0
+1,1,"Teardrops on My Guitar","Taylor Swift","Pre-Chorus ","vi-IV-I-V","",4,0,0
+2,2,"Teardrops on My Guitar","Taylor Swift","Chorus","I-V-vi-IV","",4,0,0
+3,3,"Teardrops on My Guitar","Taylor Swift","Bridge","vi-IV-I-V-I-V","I-V-vi-IV",4,0,0
+0,0,"Toxic","Britney Spears","Verse","vi","",1,0,0
+1,1,"Toxic","Britney Spears","Pre-Chorus","vi","",3,0,0
+2,2,"Toxic","Britney Spears","Chorus","vi-I-IV-III","",4,1,2
+0,0,"Xanny","Billie Eilish","Verse ","I-V-ii-iv","",4,1,0
+1,1,"Xanny","Billie Eilish","Chorus","vi-V#-I-II-ii","",5,2,1
+2,2,"Xanny","Billie Eilish","Bridge","ii-V-vi-V#-I-IV#","V#-I-IV#-ii-V",7,4,1
+3,3,"Xanny","Billie Eilish","Outro","I-V-ii","V#",5,1,0
+0,0,"Bury a Friend","Billie Eilish","Intro","vi","",1,0,0
+1,1,"Bury a Friend","Billie Eilish","Chorus","vi-ii-III-vi","III",3,2,0
+2,2,"Bury a Friend","Billie Eilish","Verse ","vi","",1,0,0
+3,3,"Bury a Friend","Billie Eilish","Pre-Chorus","vi-ii-III-vi","vi",3,1,0
+4,4,"Bury a Friend","Billie Eilish","Bridge","vi-ii-III-vi","",3,1,0
+0,0,"Harder to Breathe","Maroon 5","Intro","I-II","V",5,1,3
+1,1,"Harder to Breathe","Maroon 5","Chorus","ii-vi-I-v","VI-ii",5,2,1
+2,2,"Harder to Breathe","Maroon 5","Bridge","ii-i#-I#-I-ii-vi#-VII-ii-vi#-VII-vi#-ii-vi#-VII-ii","",7,9,13
+3,3,"Harder to Breathe","Maroon 5","Outro","I-II","",2,1,2
+0,0,"Ocean Eyes","Billie Eilish","Intro","I-II-iii-V-I","",4,1,1
+1,1,"Ocean Eyes","Billie Eilish","Verse ","I-II-iii","I",4,1,1
+2,2,"Ocean Eyes","Billie Eilish","Chorus","I-II-iii","I",4,1,1
+0,0,"Sugar","Maroon 5","Intro","I-vi-ii-I","",3,0,0
+1,1,"Sugar","Maroon 5","Verse","IV-vi-ii-I","",4,0,0
+2,2,"Sugar","Maroon 5","Chorus","IV-vi-ii-I","",4,0,0
+3,3,"Sugar","Maroon 5","Bridge","IV-vi-ii-I","",4,0,0
+0,0,"Mistletoe","Justin Bieber","Verse","I-V-vi-IV-I","",4,0,3
+1,1,"Mistletoe","Justin Bieber","Chorus","I-V-vi-IV","",4,0,3
+2,2,"Mistletoe","Justin Bieber","Bridge","I-V-vi-IV-I-V-vi-V","",4,0,6
+3,3,"Mistletoe","Justin Bieber","Outro","I-V-vi-IV","",4,0,3
+0,0,"Better","Khalid","Intro","IV-vi-V-iii","",4,0,1
+1,1,"Better","Khalid","Verse ","IV-vi-V-iii","V",4,0,1
+2,2,"Better","Khalid","Chorus","iii-IV-vi-V","V-ii",5,0,1
+3,3,"Better","Khalid","Bridge","IV-vi-V","",3,0,1
+4,4,"Better","Khalid","Outro","IV-vi-V-iii","",4,0,1
+0,0,"Come Out and Play","Billie Eilish","Verse","I-I#","",2,1,0
+1,1,"Come Out and Play","Billie Eilish","Pre-Chorus","I-I#","",2,1,0
+2,2,"Come Out and Play","Billie Eilish","Chorus","ii-V-I-iii-vi","I#",6,1,0
+3,3,"Come Out and Play","Billie Eilish","Bridge","I-I#","",2,1,0
+0,0,"Idontwannabeyouanymore","Billie Eilish","Intro","I-V-vi-V","",3,0,4
+1,1,"Idontwannabeyouanymore","Billie Eilish","Verse ","I-V-vi-V-I-V-vi-II","",5,1,8
+2,2,"Idontwannabeyouanymore","Billie Eilish","Chorus","I-V-vi-VII-I-V-vi-II-I-VII-iii","",7,3,10
+0,0,"Speak Now","Taylor Swift","Intro","I","",1,0,0
+1,1,"Speak Now","Taylor Swift","Verse","I-V-ii-IV","IV-V",4,0,0
+2,2,"Speak Now","Taylor Swift","Chorus","I-V-ii-IV","ii",4,0,0
+0,0,"Location","Khalid","Chorus","vi-iii-IV-ii","",4,0,0
+1,1,"Location","Khalid","Verse ","vi-iii-IV-ii","",4,0,0
+2,2,"Location","Khalid","Outro","vi-iii-IV-ii","",4,0,0
+0,0,"Listen Before i Go","Billie Eilish","Verse ","IV-III-vi-I","",4,1,4
+1,1,"Listen Before i Go","Billie Eilish","Pre-Chorus","IV-III-vi-I","",4,1,4
+2,2,"Listen Before i Go","Billie Eilish","Chorus","IV-III-vi-I-IV-III-vi","",5,2,6
+3,3,"Listen Before i Go","Billie Eilish","Outro","ii-V-I-IV","",4,0,1
+0,0,"Fearless","Taylor Swift","Intro","I-V-ii-IV","",4,0,0
+1,1,"Fearless","Taylor Swift","Verse ","I-V-ii-IV","",4,0,0
+2,2,"Fearless","Taylor Swift","Chorus","I-V-ii-IV-V","IV-V-I",4,0,0
+3,3,"Fearless","Taylor Swift","Solo","ii-IV-I-V","",4,0,0
+4,4,"Fearless","Taylor Swift","Bridge","VI#-I-ii-I-IV-V","IV",6,1,2
+5,5,"Fearless","Taylor Swift","Outro","I-V-ii-I-IV","",5,0,1
+0,0,"Our Song","Taylor Swift","Intro","I-ii-IV-V","",4,0,0
+1,1,"Our Song","Taylor Swift","Verse","I-ii-IV-V","",4,0,0
+2,2,"Our Song","Taylor Swift","Chorus","I-ii-IV-V","IV",4,0,0
+3,3,"Our Song","Taylor Swift","Interlude","I-ii-IV-V","",4,0,0
+4,4,"Our Song","Taylor Swift","Bridge","ii-IV-I-V","ii-IV",4,0,0
+0,0,"Back to December","Taylor Swift","Intro","I-vi-IV","",4,0,1
+1,1,"Back to December","Taylor Swift","Verse ","I-vi-IV-I-V","",4,0,0
+2,2,"Back to December","Taylor Swift","Pre-Chorus","vi-V-I-IV-vi-V-IV","",4,0,0
+3,3,"Back to December","Taylor Swift","Chorus","I-iii-IV-I-V-I","I-iii-IV",4,0,0
+4,4,"Back to December","Taylor Swift","Post-Chorus","I-V-IV-vi-V","",4,0,0
+5,5,"Back to December","Taylor Swift","Solo","I-vi-IV","",3,0,0
+6,6,"Back to December","Taylor Swift","Bridge","vi-IV-I-V","V-IV",4,0,0
+7,7,"Back to December","Taylor Swift","Interlude","I-iii-IV-I-V","",4,0,0
+8,8,"Back to December","Taylor Swift","Outro","I-vi-IV","",4,0,1
+0,0,"Say Something","Justin Timberlake","Intro","vi-I-V-II","",4,1,1
+1,1,"Say Something","Justin Timberlake","Verse ","vi-I-V-II","vi-I",4,1,1
+2,2,"Say Something","Justin Timberlake","Chorus","V-II-vi-I","V-II",4,2,0
+3,3,"Say Something","Justin Timberlake","Post-Chorus","vi-I-V-II","",4,1,0
+4,4,"Say Something","Justin Timberlake","Bridge ","vi-I-V-II","",4,1,0
+5,5,"Say Something","Justin Timberlake","Chorus ","vi-I-V-II","",4,1,0
+6,6,"Say Something","Justin Timberlake","Bridge","vi-I-V-II","V",4,1,1
+0,0,"Young Dumb & Broke","Khalid","Intro","I#","",1,1,0
+1,1,"Young Dumb & Broke","Khalid","Verse ","I#","V#",3,2,0
+2,2,"Young Dumb & Broke","Khalid","Chorus","I#","V#",3,2,0
+3,3,"Young Dumb & Broke","Khalid","Bridge","I#-vi#-V#","",3,3,0
+0,0,"Ilomilo","Billie Eilish","Verse ","ii-vi","",2,0,0
+1,1,"Ilomilo","Billie Eilish","Chorus","vi","",3,0,0
+2,2,"Ilomilo","Billie Eilish","Bridge","vi-iii-ii-vi","",3,0,0
+3,3,"Ilomilo","Billie Eilish","Outro","vi","",3,0,0
+0,0,"Gorgeous","Taylor Swift","Intro","I","",1,0,0
+1,1,"Gorgeous","Taylor Swift","Verse ","I-V-vi-IV-V","",6,0,2
+2,2,"Gorgeous","Taylor Swift","Pre-Chorus","IV-iii-IV-iii-V","",4,0,1
+3,3,"Gorgeous","Taylor Swift","Chorus","I-vi-IV-V","",5,0,1
+4,4,"Gorgeous","Taylor Swift","Bridge","IV-vi-V-ii","V",4,0,0
+5,5,"Gorgeous","Taylor Swift","Outro","I-vi-IV-V","IV-V-I",5,0,1
+0,0,"Bad Luck","Khalid","Verse ","IV-vi-I-ii-vi-IV-vi-V-I-IV","",5,0,0
+1,1,"Bad Luck","Khalid","Pre-Chorus","IV-vi-I-ii-vi-IV-vi-V-I-IV","IV-vi-I-ii-vi-IV-vi-V",5,0,0
+2,2,"Bad Luck","Khalid","Chorus","I-IV-vi-I-ii-vi-IV-vi-V-I","IV-vi-V-I-IV",5,0,0
+3,3,"Bad Luck","Khalid","Outro","I-ii-vi-IV-vi-V-I-IV","",5,0,0
+0,0,"when the Party's over","Billie Eilish","Intro","I","",1,0,0
+1,1,"when the Party's over","Billie Eilish","Verse ","I-iii-V-I","",3,0,0
+2,2,"when the Party's over","Billie Eilish","Chorus","I-iii-V-I-vi-iii-V-I-vi-iii-V-I","",4,0,0
+3,3,"when the Party's over","Billie Eilish","Bridge","vi-iii-V-I","I#-II-I",6,2,0
+0,0,"My Strange Addiction","Billie Eilish","Verse ","vi-IV-ii-vi","",3,0,0
+1,1,"My Strange Addiction","Billie Eilish","Pre-Chorus ","vi-IV-ii-vi","ii",3,0,0
+2,2,"My Strange Addiction","Billie Eilish","Chorus ","vi-IV-ii-vi","ii",3,0,0
+3,3,"My Strange Addiction","Billie Eilish","Bridge","vi","",1,0,0
+0,0,"Wait","Maroon 5","Verse ","I-V-vi-IV","",4,0,0
+1,1,"Wait","Maroon 5","Pre-Chorus","I-V-vi-IV","",4,0,0
+2,2,"Wait","Maroon 5","Chorus","I-V-vi-IV","",4,0,0
+3,3,"Wait","Maroon 5","Bridge","I-V-vi-IV","",4,0,0
+0,0,"Sunday Morning","Maroon 5","Intro","vi-II-V","",3,1,0
+1,1,"Sunday Morning","Maroon 5","Verse ","vi-II-V","",3,1,0
+2,2,"Sunday Morning","Maroon 5","Chorus","vi-II-V","",3,1,0
+3,3,"Sunday Morning","Maroon 5","Bridge","vi-II-V","",3,1,0
+4,4,"Sunday Morning","Maroon 5","Outro","V-vi-II-V","II-V",3,2,0
+0,0,"Should've Said No","Taylor Swift","Intro","III-VII-IV#-v#","",4,4,0
+1,1,"Should've Said No","Taylor Swift","Verse","IV#-v#-III-VII","IV#-v#",4,6,0
+0,0,"Look What you Made Me Do","Taylor Swift","Intro","vi-IV-III","",3,1,0
+1,1,"Look What you Made Me Do","Taylor Swift","Verse ","vi-V-IV-III","",4,1,0
+2,2,"Look What you Made Me Do","Taylor Swift","Pre-Chorus","vi-V-IV-III","",4,1,0
+3,3,"Look What you Made Me Do","Taylor Swift","Chorus","vi-V-IV-III","",4,1,0
+4,4,"Look What you Made Me Do","Taylor Swift","Bridge","vi-IV-III","",3,1,0
+0,0,"Safe & Sound","Taylor Swift","Intro","ii-vi-IV-I","",4,0,0
+1,1,"Safe & Sound","Taylor Swift","Verse","ii-vi-IV-I","IV",4,0,0
+2,2,"Safe & Sound","Taylor Swift","Chorus","IV-I-V","IV",4,0,0
+3,3,"Safe & Sound","Taylor Swift","Interlude","IV-I-vi-V","",4,0,0
+4,4,"Safe & Sound","Taylor Swift","Outro","IV-I-V","",3,0,0
+0,0,"Love Yourself","Justin Bieber","Verse ","I-V-vi-ii-I-V","",4,0,2
+1,1,"Love Yourself","Justin Bieber","Pre-Chorus","vi-IV-I","V",4,0,0
+2,2,"Love Yourself","Justin Bieber","Chorus","I-V-vi-IV-I-V-I","",4,0,0
+0,0,"Everything Has Changed","Taylor Swift","Intro","III","III",2,2,1
+0,0,"Me!","Taylor Swift","Intro","I","",1,0,0
+1,1,"Me!","Taylor Swift","Verse ","I-V-ii-IV","",4,0,0
+2,2,"Me!","Taylor Swift","Pre-Chorus","ii-IV-I-V-ii-IV-V","",4,0,0
+3,3,"Me!","Taylor Swift","Chorus","I-V-ii-IV-I","",4,0,0
+4,4,"Me!","Taylor Swift","Bridge","I-V-ii-IV-ii-IV-I-V-ii-IV","ii-IV-I-V-ii-IV-I-V",4,0,0
+5,5,"Me!","Taylor Swift","Outro","V-ii-IV-I","",4,0,0
+0,0,"Sorry","Justin Bieber","Intro","II#-v-IV","",3,2,0
+1,1,"Sorry","Justin Bieber","Verse ","II#-v-IV","",3,2,0
+2,2,"Sorry","Justin Bieber","Pre-Chorus","II#-v-IV","II#-IV",4,3,0
+3,3,"Sorry","Justin Bieber","Chorus","II#-v-IV","II#-IV",4,3,0
+4,4,"Sorry","Justin Bieber","Bridge","II#-v-IV","II#-IV",4,3,0
+5,5,"Sorry","Justin Bieber","Outro","II#-v-IV","",3,2,0
+0,0,"Love Story","Taylor Swift","Intro","I-V-vi-IV","",4,0,0
+1,1,"Love Story","Taylor Swift","Verse ","I-IV-vi-IV-I-IV-vi-V","",4,0,0
+2,2,"Love Story","Taylor Swift","Pre-Chorus","IV-V-vi-I-IV-V-vi","V",4,0,0
+3,3,"Love Story","Taylor Swift","Chorus","I-V-vi-IV-V-I","",4,0,0
+4,4,"Love Story","Taylor Swift","Solo","I-V-vi-IV-V","",4,0,0
+5,5,"Love Story","Taylor Swift","Bridge","vi-IV-I-V","",4,0,0
+6,6,"Love Story","Taylor Swift","Outro","II-VI-vii-V-VI-II","",4,5,0
+0,0,"8","Billie Eilish","Verse ","I-ii-V","",4,0,1
+1,1,"8","Billie Eilish","Chorus ","I-ii-V","",4,0,1
+0,0,"Walk","Foo Fighters","Verse ","III-VII-iv#-vi","",4,3,0
+1,1,"Walk","Foo Fighters","Chorus","III-VII-iv#-vi","",4,3,0
+2,2,"Walk","Foo Fighters","Bridge","III-VII-i#-VI-vi","",5,4,0
+3,3,"Walk","Foo Fighters","Outro","III-VII-iv#-vi-III","",4,4,0
+0,0,"Change","Taylor Swift","Intro","IV","IV",2,0,1
+0,0,"Won't Go Home without you","Maroon 5","Verse ","I-ii-V-I-vi-ii-IV-V-I","",6,0,1
+1,1,"Won't Go Home without you","Maroon 5","Pre-Chorus","I-vi-IV#-IV-V","",5,1,0
+2,2,"Won't Go Home without you","Maroon 5","Chorus","I-ii-IV-V-I","",4,0,0
+3,3,"Won't Go Home without you","Maroon 5","Bridge","VIIb-IV-I-V-IIIb-VIIb-IV-V","",5,3,0
+4,4,"Won't Go Home without you","Maroon 5","Outro","I-ii-IV-V-I-vi-IV-I","",5,0,0
+0,0,"you Belong with Me","Taylor Swift","Intro","VI#","",1,1,0
+1,1,"you Belong with Me","Taylor Swift","Verse ","VI#-IV-i-II#","",4,3,0
+2,2,"you Belong with Me","Taylor Swift","Pre-Chorus","i-II#-VI#-IV-i-II#-IV","",4,5,0
+3,3,"you Belong with Me","Taylor Swift","Chorus","VI#-IV-i-II#-VI#","",4,4,0
+4,4,"you Belong with Me","Taylor Swift","Bridge","VI#-IV-i-II#-i-II#-VI#-IV-i-II#","i-II#-VI#-IV-i-II#-VI#-IV",4,14,0
+5,5,"you Belong with Me","Taylor Swift","Outro","IV-i-II#-VI#","",4,3,0
+0,0,"all the Good Girls Go to Hell","Billie Eilish","Verse ","vi-IV-ii-III","",4,1,1
+1,1,"all the Good Girls Go to Hell","Billie Eilish","Pre-Chorus ","vi-IV-ii-III","",4,1,1
+2,2,"all the Good Girls Go to Hell","Billie Eilish","Chorus ","vi-IV-ii-III","",4,1,1
+3,3,"all the Good Girls Go to Hell","Billie Eilish","Post-Chorus ","vi-IV-ii-III","",4,1,1
+4,4,"all the Good Girls Go to Hell","Billie Eilish","Outro","vi-IV-ii-III","",4,1,1
+0,0,"Suncity","Khalid","Intro","vi-V-ii-iii","",4,0,0
+0,0,"Moves Like Jagger","Maroon 5","Verse ","vi-I-V","IV",4,0,0
+1,1,"Moves Like Jagger","Maroon 5","Chorus","vi-I-V-IV","",4,0,0
+2,2,"Moves Like Jagger","Maroon 5","Bridge","vi-I-V-IV","",4,0,0
+0,0,"you Should See Me in a Crown","Billie Eilish","Intro","I-III-vii-V","",4,2,0
+1,1,"you Should See Me in a Crown","Billie Eilish","Verse ","III-I-V-I","V",3,1,0
+2,2,"you Should See Me in a Crown","Billie Eilish","Chorus","III-vii-III","",2,3,0
+0,0,"Talk","Khalid","Intro","I-iii-ii-iii-ii","IV",5,0,6
+1,1,"Talk","Khalid","Chorus","I-iii-ii-iii-ii","IV",5,0,6
+2,2,"Talk","Khalid","Verse ","I-iii-ii-iii-ii","IV-I-iii",5,0,6
+3,3,"Talk","Khalid","Outro","I-iii-ii-iii-ii","",5,0,4
+0,0,"Bad Guy","Billie Eilish","Intro","vi-ii-III","",3,1,1
+1,1,"Bad Guy","Billie Eilish","Verse ","vi-ii-III","",3,1,1
+2,2,"Bad Guy","Billie Eilish","Chorus ","vi-ii-III","",3,1,1
+3,3,"Bad Guy","Billie Eilish","Post-Chorus ","vi-ii-III","",3,1,1
+4,4,"Bad Guy","Billie Eilish","Interlude","vi","",1,0,0
+5,5,"Bad Guy","Billie Eilish","Outro","vi","",1,0,0
+0,0,"Wildest Dreams","Taylor Swift","Intro","I-iii-II","",3,1,0
+1,1,"Wildest Dreams","Taylor Swift","Verse","I-iii-II","",3,1,0
+2,2,"Wildest Dreams","Taylor Swift","Chorus","V-II-vi-I","",4,1,0
+3,3,"Wildest Dreams","Taylor Swift","Bridge","V-II-vi-I","",4,1,0
+0,0,"Learn to Fly","Foo Fighters","Intro","I-v-IV","",3,1,0
+1,1,"Learn to Fly","Foo Fighters","Verse","I-v-IV","",3,1,0
+2,2,"Learn to Fly","Foo Fighters","Chorus","I-v-IV","I",5,1,0
+3,3,"Learn to Fly","Foo Fighters","Bridge","V#-II#-IV-V#-VI#-I","VI#",5,5,0
+4,4,"Learn to Fly","Foo Fighters","Outro","I","I",3,0,1
+0,0,"Wish you Were Gay","Billie Eilish","Verse ","vi-II-V-iii","",4,1,1
+1,1,"Wish you Were Gay","Billie Eilish","Chorus","vi-II-V-iii","",4,1,1
+2,2,"Wish you Were Gay","Billie Eilish","Bridge","vi-II-V-iii","",4,1,1
+0,0,"Girls Like you","Maroon 5","Verse ","I-V-vi-IV","",4,0,0
+1,1,"Girls Like you","Maroon 5","Pre-Chorus","I-V-vi-IV","",4,0,0
+2,2,"Girls Like you","Maroon 5","Chorus","I-V-vi-IV","IV-I",4,0,0
+3,3,"Girls Like you","Maroon 5","Post-Chorus","V-vi-IV-I-V-vi-IV","",4,0,0
+4,4,"Girls Like you","Maroon 5","Bridge","I-V-vi-IV","",4,0,0
+5,5,"Girls Like you","Maroon 5","Outro","I-V-vi-IV","",4,0,0
+0,0,"i Love you","Billie Eilish","Intro","IV-I","",2,0,1
+1,1,"i Love you","Billie Eilish","Verse ","IV-I","",3,0,1
+2,2,"i Love you","Billie Eilish","Chorus","IV-ii-V-vi-I-IV-I","",6,0,1
+3,3,"i Love you","Billie Eilish","Bridge","ii-V-IV","",3,0,0
+4,4,"i Love you","Billie Eilish","Outro","IV-ii-V-vi-I-IV-I-IV-I-IV-I","",6,0,1
+0,0,"Animals","Maroon 5","Chorus","vi-V-IV","vi",3,0,0
+1,1,"Animals","Maroon 5","Verse","V-IV-vi","IV",3,0,0
+2,2,"Animals","Maroon 5","Pre-Chorus","vi","IV",3,0,0
+3,3,"Animals","Maroon 5","Post-Chorus","V-IV-vi-V","IV",3,0,0
+4,4,"Animals","Maroon 5","Bridge","vi","",1,0,0
+0,0,"Blank Space","Taylor Swift","Verse","I-vi-IV-V-I-vi-IV-V-IV-V","",5,0,1
+1,1,"Blank Space","Taylor Swift","Chorus","I-vi-ii-IV-I-vi-ii-IV-I","",4,0,0
+2,2,"Blank Space","Taylor Swift","Bridge","I","",1,0,0
+0,0,"Right Back","Khalid","Intro","I-IV-III-vi","III-VIb-vi",7,3,2
+1,1,"Right Back","Khalid","Verse ","I-IV-III-vi","III-VIb-vi",7,3,2
+2,2,"Right Back","Khalid","Chorus","I-IV-III-vi","III-VIb-vi",7,3,2
+3,3,"Right Back","Khalid","Bridge","IV-I","vi",7,0,0
+0,0,"White Horse","Taylor Swift","Intro","V-I-iii-I","",3,0,0
+1,1,"White Horse","Taylor Swift","Verse ","V-I-iii-I","II",5,1,3
+2,2,"White Horse","Taylor Swift","Chorus","V-iii-I-II","I-V",4,1,0
+3,3,"White Horse","Taylor Swift","Bridge","iii-II-I-V-II-I-V-II-I-IV","",5,3,0
+4,4,"White Horse","Taylor Swift","Outro","I-iii-I-V","I",3,0,0
+0,0,"She will be Loved","Maroon 5","Intro","vii-VI","",2,2,0
+1,1,"She will be Loved","Maroon 5","Verse","vii-VI","",2,2,0
+2,2,"She will be Loved","Maroon 5","Chorus","II-VI-vii-V","",4,3,0
+3,3,"She will be Loved","Maroon 5","Outro","vii-VI","V",3,2,0
+0,0,"That Should be Me","Justin Bieber","Intro","vi-IV-I-III-vi-IV-I","",5,1,2
+1,1,"That Should be Me","Justin Bieber","Verse ","vi-IV-I-III","ii-IV",6,1,1
+2,2,"That Should be Me","Justin Bieber","Chorus","I-IV-iv-I-IV-ii-vi-IV-I-III","",8,2,7
+3,3,"That Should be Me","Justin Bieber","Bridge","V#-VIIb","V#",6,3,1
+0,0,"you Need to Calm Down","Taylor Swift","Intro","I","IV",2,0,0
+1,1,"you Need to Calm Down","Taylor Swift","Verse ","I","IV",2,0,0
+2,2,"you Need to Calm Down","Taylor Swift","Pre-Chorus ","I","V",3,0,0
+3,3,"you Need to Calm Down","Taylor Swift","Chorus","I","",2,0,0
+4,4,"you Need to Calm Down","Taylor Swift","Bridge","I-IV","",2,0,0

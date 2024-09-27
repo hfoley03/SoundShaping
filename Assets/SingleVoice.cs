@@ -8,23 +8,17 @@ public class SingleVoice : MonoBehaviour
     int chordNumber = -1;
     int noteNumber = -1;
     int sourceIndex = 0;
-
     private AudioSource[] audioSources;
     int numberOfSources = 4;
-
     public AudioMixer theMixer;
     public AudioMixerGroup theChannel;
-
     private bool setupComplete;
-
 
     void Start()
     {
-        //chordNumber = MusicManager.Instance.chordsSet;
         audioSources = new AudioSource[numberOfSources];
         for (int i = 0; i < numberOfSources; i++)
         {
-
             AudioSource newAudioSource = gameObject.AddComponent<AudioSource>();
             newAudioSource.playOnAwake = false;
             newAudioSource.loop = false;
@@ -34,7 +28,6 @@ public class SingleVoice : MonoBehaviour
         setupComplete = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (setupComplete) 
@@ -48,9 +41,7 @@ public class SingleVoice : MonoBehaviour
                 setupComplete = false;
             }
         }
-
     }
-
 
     public void SetClip(int note, int _chordNumber)
     {

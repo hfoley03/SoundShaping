@@ -95,8 +95,6 @@ public class LogManager : MonoBehaviour
     {
         if (GameManager.Instance.gameMode == GameManager.GameMode.OpenEnded)
         {
-            //Debug.LogWarning("oe time " + oeTotalTime + "   oe attention time " + oe_attentionTime);
-
             float currentTime = Time.time;
             float deltaTime = currentTime - oeLastUpdateTime;
             float deltaTimeattention = currentTime - oeAttentionLastUpdateTime;
@@ -105,7 +103,8 @@ public class LogManager : MonoBehaviour
             {
                 oeTotalTime += deltaTime;
             }
-            if (oeStartStop && AttentionAreaScript.Instance.ObjectDetectionforAttentionOE() > 0) {
+            if (oeStartStop && AttentionAreaScript.Instance.ObjectDetectionforAttentionOE() > 0) 
+            {
                 oe_attentionTime += deltaTimeattention;
             }
             oeLastUpdateTime = currentTime;

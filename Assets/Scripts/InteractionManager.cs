@@ -10,7 +10,6 @@ using System.Linq;
 
 public class InteractionManager : MonoBehaviour
 {
-
     private static InteractionManager _instance;
     public static InteractionManager Instance
     {
@@ -29,14 +28,11 @@ public class InteractionManager : MonoBehaviour
     private bool leftIsReadyPinch = false;
     public bool leftIsPinch = false;
     private float leftPinchAmount = 0.0f;
-
     private bool rightIsReadyPinch = false;
     public bool rightIsPinch = false;
     private float rightPinchAmount = 0.0f;
 
     public GameObject handSphere;
-
-
     HandJointPose leftPoseIndexTip;
     HandJointPose leftWritstPose;
     HandJointPose rightPoseIndexTip;
@@ -52,8 +48,6 @@ public class InteractionManager : MonoBehaviour
 
     private int globalLineCounter = 0;
     private int globalGrandParentCounter = 0;
-
-
     public GameObject currentStateCube;
     public GameObject leftStateCube;
     public GameObject rightStateCube;
@@ -90,99 +84,50 @@ public class InteractionManager : MonoBehaviour
         Idle,
         Drawing,
         Sculpting,
-        Manipulating
     }
 
-    public enum HandState
-    {
-        Idle,
-        Drawing,
-        Sculpting,
-        Manipulating
-    }
-
-    public HandState rhState;
-    public HandState lhState;
-
-
-    private InteractionState currentState;
-
+    public InteractionState rhState;
+    public InteractionState lhState;
+    private InteractionState systemState;
 
     private void Awake()
     {
         _instance = this;
-        currentState = InteractionState.Idle;
-        rhState = HandState.Idle;
-        lhState = HandState.Idle;
+        systemState = InteractionState.Idle;
+        rhState = InteractionState.Idle;
+        lhState = InteractionState.Idle;
         Debug.Log("hi from the InteractionManager");
-
-
     }
-
-    // Start is called before the first frame update
     void Start()
     {
         rightDrawLineScript = rightDrawObject.GetComponent<Draw_Line>();
         leftDrawLineScript = leftDrawObject.GetComponent<Draw_Line>();
         TMT_Collider_Ball = Instantiate(TMT_Collider_Ball);
-        //wristRotationCube = Instantiate(wristRotationCube, this.transform);
-/*        handSphere = Instantiate(handSphere, this.transform);
-        handSphere.GetComponent<Renderer>().enabled = false;
-        handSphere.GetComponent<SphereCollider>().enabled = false;*/
-
     }
 
-    // Update is called once per frame
     void Update()
     {
+        XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.Wrist, leftHandNode, out leftWritstPose);
+        XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.Wrist, rightHandNode, out rightWritstPose);
 
-
-        if (XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.Wrist, leftHandNode, out leftWritstPose))
-        {
-
-        }
-
-        if (XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.Wrist, rightHandNode, out rightWritstPose))
-        {
-            /* wristRotationCube.GetComponent<Renderer>().enabled = true; //true to show
-             wristRotationCube.transform.position = rightWritstPose.Position;
-             wristRotationCube.transform.rotation = rightWritstPose.Rotation;*/
-
-        }
-
-
-        if (XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.IndexTip, leftHandNode, out leftPoseIndexTip))
-        {
-            //Debug.Log("indexTip pos: " + leftPoseIndexTip.Position);
-
-        }
-
-        if (XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.IndexTip, rightHandNode, out rightPoseIndexTip))
-        {
-
-        }
-
+        XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.IndexTip, leftHandNode, out leftPoseIndexTip);
+        XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.IndexTip, rightHandNode, out rightPoseIndexTip);
 
         XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(leftHandNode, out leftIsReadyPinch, out leftIsPinch, out leftPinchAmount);
         XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(rightHandNode, out rightIsReadyPinch, out rightIsPinch, out rightPinchAmount);
 
-        //Debug.Log(rightIsReadyPinch);
-
         if (finishedSculpting == false)
         {
-            //just stopped sculpting wait a moment before being able to draw 
+            // if is true if we have not finished sculpting
+            // just stopped sculpting wait a moment before being able to draw 
             sculptCoolDown();
         }
 
-        if (currentState == InteractionState.Idle || currentState == InteractionState.Drawing)
+        if (systemState != InteractionState.Sculpting && finishedSculpting == true)
         {
-            //true if idle or drawing
-            if (finishedSculpting)
-            {
-                // if (rightIsReadyPinch) { }
+            //true if idle or drawing & finishee sculpting
                 RightHand(rightPinchAmount);
                 LeftHand(leftPinchAmount);
-            }
         }
 
         timer += Time.deltaTime;
@@ -190,11 +135,8 @@ public class InteractionManager : MonoBehaviour
         {
             //check wrist angle every interval of timer
             timer = 0f;
-            // Debug.Log("last angle: " + lastAngle);
-            // Debug.Log("curr angle: " + writstPoser.Rotation.eulerAngles.z);
             degreeDiff(rightHandNode, rightWritstPose.Rotation.eulerAngles.z, 30.0f);
             degreeDiff(leftHandNode, leftWritstPose.Rotation.eulerAngles.z, 30.0f);
-
         }
 
         if (!nodeSpawnAllowed)
@@ -212,7 +154,7 @@ public class InteractionManager : MonoBehaviour
         leftStateCubeColour();
         rightStateCubeColour();
 
-        if(rhState == HandState.Sculpting && lhState == HandState.Sculpting)
+        if(rhState == InteractionState.Sculpting && lhState == InteractionState.Sculpting)
         {
             //block overlapsolvers
             allowOveralSolver = false;
@@ -229,17 +171,9 @@ public class InteractionManager : MonoBehaviour
     void RightHand(float pinchAmount)
     {
         float handY = Camera.main.transform.position.y - rightPoseIndexTip.Position.y;
-/*
-        if( handY > 0 && handY > armLength) {
-            Debug.Log("too far " + handY);
-        }*/
 
-
-        if ((pinchAmount > 0.8f) && rhState != HandState.Sculpting && (handY < armLength))  // rightIsPinch
+        if ((pinchAmount > 0.8f) && rhState != InteractionState.Sculpting && (handY < armLength))  // rightIsPinch
         {
-            //draw with right hand
-            //call Draw_Line
-
             Vector3 brushPosition = rightPoseIndexTip.Position;
 
             if (GameManager.Instance.gameMode == GameManager.GameMode.TMT)
@@ -252,49 +186,38 @@ public class InteractionManager : MonoBehaviour
                 TMT_Collider_Ball.transform.position = brushPosition;
             }
 
-            rightDrawLineScript.SetPosition(brushPosition); // + offsetVec
+            rightDrawLineScript.SetPosition(brushPosition);
 
             if (finishedSculpting)
             {
-
-                if (rhState == HandState.Idle && currentState == InteractionState.Idle)
+                if (rhState == InteractionState.Idle && systemState == InteractionState.Idle)
                 {
                     //create brush
-                    rhState = HandState.Drawing;
-                    currentState = InteractionState.Drawing;
-                    //Debug.Log("Right Pinch Amt: " + rightPinchAmount);
+                    rhState = InteractionState.Drawing;
+                    systemState = InteractionState.Drawing;
                     rightDrawLineScript.CreateBrush();
-
                 }
-                else if (rhState == HandState.Drawing)
+                else if (rhState == InteractionState.Drawing)
                 {
-                    //Add Point
                     rightDrawLineScript.AddPoint();
 
                     if (rightDrawLineScript.currentLineRenderer.positionCount % 5 == 0 && nodeSpawnAllowed)
                     {
 
                         if (degreeDiff(rightHandNode, rightWritstPose.Rotation.eulerAngles.z, 30.0f))
-
                         {
-                            //make node writst rotated 
-                            // Debug.Log("ROTATED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                            //Stop Drawing
                             rightDrawLineScript.WristSplit();
                             nodeSpawnAllowed = false;
-
                         }
-
-
                     }
                 }
             }
         }
-        else if (rhState == HandState.Drawing) //right hand was drawing but is no longer pinching 
+        else if (rhState == InteractionState.Drawing) //right hand was drawing but is no longer pinching 
         {
             //Stop Drawing
-            rhState = HandState.Idle;
-            currentState = InteractionState.Idle;
+            rhState = InteractionState.Idle;
+            systemState = InteractionState.Idle;
             rightDrawLineScript.StopDrawing(false);
         }
     }
@@ -303,13 +226,8 @@ public class InteractionManager : MonoBehaviour
     {
         float handY = Camera.main.transform.position.y - leftPoseIndexTip.Position.y;
 
-        if ((pinchAmount > 0.8f) && lhState != HandState.Sculpting && (handY < armLength))
-        // if ((pinchAmount > 0.8f) && currentState != InteractionState.Sculpting && (handY < armLength))
-        {
-            //draw with left hand
-            //call Draw_Line
+        if ((pinchAmount > 0.8f) && lhState != InteractionState.Sculpting && (handY < armLength))
             Vector3 brushPos = leftPoseIndexTip.Position;
-
             if (GameManager.Instance.gameMode == GameManager.GameMode.TMT)
             {
                 float dist = Vector3.Distance(TMTManager.Instance.origin, brushPos);
@@ -318,50 +236,40 @@ public class InteractionManager : MonoBehaviour
                     brushPos = new Vector3(leftPoseIndexTip.Position.x, leftPoseIndexTip.Position.y, (TMTManager.Instance.origin.z + 0.005f));
                 }
                 TMT_Collider_Ball.transform.position = brushPos;
-
             }
 
             leftDrawLineScript.SetPosition(brushPos); // + offsetVec
 
             if (finishedSculpting)
             {
-
-                if (lhState == HandState.Idle && currentState == InteractionState.Idle)
+                if (lhState == InteractionState.Idle && systemState == InteractionState.Idle)
                 {
                     //create brush
-                    lhState = HandState.Drawing;
-                    currentState = InteractionState.Drawing;
+                    lhState = InteractionState.Drawing;
+                    systemState = InteractionState.Drawing;
                     leftDrawLineScript.CreateBrush();
-
                 }
-                else if (lhState == HandState.Drawing)
+                else if (lhState == InteractionState.Drawing)
                 {
-                    //Add Point
+
                     leftDrawLineScript.AddPoint();
 
                     if (leftDrawLineScript.currentLineRenderer.positionCount % 5 == 0 && nodeSpawnAllowed)
                     {
-
                         if (degreeDiff(leftHandNode, leftWritstPose.Rotation.eulerAngles.z, 30.0f))
-
                         {
-                            //make node writst rotated 
-                            // Debug.Log("ROTATED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                            //Stop Drawing
+
                             leftDrawLineScript.WristSplit();
                             nodeSpawnAllowed = false;
-
                         }
-
-
                     }
                 }
             }
         }
-        else if (lhState == HandState.Drawing) //right hand was drawing but is no longer pinching 
+        else if (lhState == InteractionState.Drawing) //right hand was drawing but is no longer pinching 
         {
             //Stop Drawing
-            lhState = HandState.Idle;
+            lhState = InteractionState.Idle;
             currentState = InteractionState.Idle;
             leftDrawLineScript.StopDrawing(false);
         }
@@ -397,17 +305,6 @@ public class InteractionManager : MonoBehaviour
         return globalGrandParentCounter;
     }
 
-    /*    public void Attentionvisual(int n)
-        {
-
-            if (n == 0) {
-                currentStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
-            }
-            else {
-                currentStateCube.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
-            }
-
-        }*/
 
     void currentStateCubeColour()
     {
@@ -431,15 +328,15 @@ public class InteractionManager : MonoBehaviour
     {
         switch (rhState)
         {
-            case HandState.Idle:
+            case InteractionState.Idle:
                 //set col;
                 rightStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
                 break;
-            case HandState.Drawing:
+            case InteractionState.Drawing:
                 //set coll
                 rightStateCube.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
                 break;
-            case HandState.Sculpting:
+            case InteractionState.Sculpting:
                 rightStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 255);
                 break;
         }
@@ -447,24 +344,23 @@ public class InteractionManager : MonoBehaviour
 
     void leftStateCubeColour()
     {
-        //leftStateCube.GetComponent<Renderer>().material.color = new Color(0, 255 * coolDownTimer, 0);
-
         switch (lhState)
         {
-            case HandState.Idle:
+            case InteractionState.Idle:
                 //set col;
                 leftStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
                 break;
-            case HandState.Drawing:
+            case InteractionState.Drawing:
                 //set coll
                 leftStateCube.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
                 break;
-            case HandState.Sculpting:
+            case InteractionState.Sculpting:
                 leftStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 255);
                 break;
         }
     }
 
+    // timer used to temp block drawing  after sculpting
     void sculptCoolDown()
     {
         coolDownTimer += Time.deltaTime;
@@ -481,39 +377,26 @@ public class InteractionManager : MonoBehaviour
         float previous = 0.0f;
         if (thisNode.IsLeftHand())
         {
-            //LEFT
             previous = lastAngleL;
         }
         else if (thisNode.IsRightHand())
         {
-            //right
             previous = lastAngleR;
         }
 
-        float diff = 180 - Mathf.Abs(Mathf.Abs(previous - current) - 180);
-
+        float diff = 180 - Mathf.Abs(Mathf.Abs(previous - current) - 180); 
         bool changed = diff > angleAmt;
 
         if (changed)
         {
-            //wristRotationCube.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
-
             if (thisNode.IsLeftHand())
             {
-                //LEFT
                 lastAngleL = leftWritstPose.Rotation.eulerAngles.z;
             }
             else if (thisNode.IsRightHand())
             {
-                //right
                 lastAngleR = rightWritstPose.Rotation.eulerAngles.z;
             }
-
-        }
-        else
-        {
-            // wristRotationCube.GetComponent<Renderer>().material.color = new Color(0, 255, 0);
-
         }
         return changed;
     }
