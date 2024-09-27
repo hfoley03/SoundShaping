@@ -5,6 +5,8 @@ DrawPlaySculpt is an augmented reality (AR) application designed to promote crea
 
 This project combines 3D drawing mechanics and music co-creation, allowing users to draw in virtual space, interact with their drawings, and generate harmonious music without the need for musical training.
 
+![alt text](https://github.com/hfoley03/DrawPlaySculpt/blob/main/Images/oe_tmt.png?raw=true)
+
 ## Features
 - **3D Drawing and Sculpting:** Users can draw 3D lines that resemble pipes or tubes, which are converted into **cubic Bézier curves** for further manipulation and sculpting.
 - **Music Co-Creation:** A **stochastic probabilistic model with variable-length Markov chains** controls the chord progressions, allowing users to interact with musical notes that follow the drawings.
