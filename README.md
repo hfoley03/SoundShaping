@@ -1,7 +1,7 @@
-# DrawPlaySculpt: A Creative Art Therapy Activity in Augmented Reality for Neurodevelopmental Disorders
+# SoundShaping: A Creative Art Therapy Activity in Augmented Reality for Neurodevelopmental Disorders
 
 ## Overview
-DrawPlaySculpt is an augmented reality (AR) application designed to promote creative expression and art therapy, specifically for individuals with neurodevelopmental disorders such as Autism Spectrum Disorder (ASD). The system leverages the Microsoft Hololens 2 and incorporates interactive drawing, sculpting, and musical composition to provide a multi-sensory, immersive experience.
+SoundShaping is an augmented reality (AR) application designed to promote creative expression and art therapy, specifically for individuals with neurodevelopmental disorders such as Autism Spectrum Disorder (ASD). The system leverages the Microsoft Hololens 2 and incorporates interactive drawing, sculpting, and musical composition to provide a multi-sensory, immersive experience.
 
 This project combines 3D drawing mechanics and music co-creation, allowing users to draw in virtual space, interact with their drawings, and generate harmonious music without the need for musical training.
 
