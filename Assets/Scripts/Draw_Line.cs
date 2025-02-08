@@ -8,17 +8,13 @@ public class Draw_Line : MonoBehaviour
 {
     private bool meshColliderEnabled = true;
 
-    GameObject brushInstance;
-    public GameObject brushUser;
-    public GameObject brushBezier;
-    public GameObject noteNode;
-    public GameObject smallNode;
-    public GameObject smallNodeNonInteractable;
+    private GameObject brushInstance;
+    public GameObject brushUser, brushBezier;
+    public GameObject noteNode, smallNode, smallNodeNonInteractable;
     public GameObject wristRotationCube;
-    public GameObject lineGroupParent;
-    public GameObject lineGrandparent;
-    public GameObject userDrawnGroup;
-
+    public GameObject lineGroupParent, lineGrandparent, userDrawnGroup;
+    private GameObject groupParent, grandParent;
+    
     public Material blue, red, green, yellow, purple, pink, orange;
     private Material currentColour;
     private Dictionary<string, Material> colourDict;
@@ -26,23 +22,20 @@ public class Draw_Line : MonoBehaviour
     public GameObject theWrist;
 
     public LineRenderer currentLineRenderer;
-    LineRenderer bezierLineRenderer;
+    private LineRenderer bezierLineRenderer;
 
     [SerializeField]
     private float minDistance = 0.01f;
 
     public int newVal;
 
-    Vector3 lastPos;
-    Vector3 indexPos;
+    private Vector3 lastPos, indexPos;
 
     float lastAngle;
 
-    //int lineCounter = 0;
     int segmentCounter = 0;
 
-    GameObject groupParent;
-    GameObject grandParent;
+  
 
     void Start()
     {
@@ -56,115 +49,86 @@ public class Draw_Line : MonoBehaviour
             {"pink", pink },
            {"orange", orange }
        };
-        setColour("orange");
-    }
-
-    public void setColour(string col)
-    {
-        Material material;
-        if(colourDict.TryGetValue(col, out material))
-        {
-            currentColour = material;
-        }
-        else
-        {
-            Debug.Log("we dont have that colour");
-        }
+        setColourInt(1);
     }
 
     public void setColourInt(int col)
     {
-        if(col == 0)
+        Material[] colorArray = { blue, red, green, yellow, purple, pink, orange };
+        
+        if (col >= 0 && col < colorArray.Length)
         {
+            currentColour = colorArray[col];
+        }
+        else
+        {
+            Debug.LogWarning($"Invalid color index {col}. Using default color.");
             currentColour = blue;
-        }
-        if (col == 1)
-        {
-            currentColour = red;
-        }
-        if (col == 2)
-        {
-            currentColour = green;
-        }
-        if (col == 3)
-        {
-            currentColour = yellow;
-        }
-        if (col == 4)
-        {
-            currentColour = purple;
-        }
-        if (col == 5)
-        {
-            currentColour = pink;
-        }
-        if (col == 6)
-        {
-            currentColour = orange;
         }
     }
 
-    public void SetPosition(Vector3 pos) {
-        indexPos = pos;
+    public void SetPosition(Vector3 pos) { indexPos = pos;}
+
+    private void SetupBrushHierarchy()
+    {
+        CreateGrandparent();
+        CreateParent();
+        CreateFirstNode();
     }
+
 
     public void CreateBrush()
     {
         brushInstance = Instantiate(brushUser);
         currentLineRenderer = brushInstance.GetComponent<LineRenderer>();
         currentLineRenderer.material = currentColour;
-        lastPos = indexPos;
+        
         currentLineRenderer.SetPosition(0, indexPos);
         currentLineRenderer.SetPosition(1, indexPos);
+        
         lastPos = indexPos;
 
-        CreateGrandparent();
-        CreateParent();
-        CreateFirstNode();
+        SetupBrushHierarchy();
     }
 
     void CreateFirstNode()
     {
-        GameObject sphereNodeInstanceP0 = null;
+        GameObject sphereNodeInstanceLineStart = null;
         if (GameManager.Instance.gameMode == GameManager.GameMode.OpenEnded)
         {
-            sphereNodeInstanceP0 = Instantiate(noteNode);
+            sphereNodeInstanceLineStart = Instantiate(noteNode);
             Debug.LogError("oe note node init");
         }
         else if (GameManager.Instance.gameMode == GameManager.GameMode.TMT)
         {
-            sphereNodeInstanceP0 = Instantiate(smallNodeNonInteractable);
+            sphereNodeInstanceLineStart = Instantiate(smallNodeNonInteractable);
             Debug.LogError("tmt small node init");
         }
 
-        if (sphereNodeInstanceP0 != null){
+        if (sphereNodeInstanceLineStart != null){
             //NODE AT START OF EACH LINE
-            sphereNodeInstanceP0.transform.position = indexPos;
-            sphereNodeInstanceP0.name = "NodeP0_" + "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_Segment_" + 0;
-            sphereNodeInstanceP0.transform.SetParent(groupParent.transform);
-            sphereNodeInstanceP0.GetComponent<MeshRenderer>().material = currentColour;
-            sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetSegmentNumber(0);
-            sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetNodeNumber(0);
-            sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetLineNumber(InteractionManager.Instance.getGlobalLineCounter());
-            sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.StartNoteNode);
+            sphereNodeInstanceLineStart.transform.position = indexPos;
+            sphereNodeInstanceLineStart.name = "NodeP0_" + "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_Segment_" + 0;
+            sphereNodeInstanceLineStart.transform.SetParent(groupParent.transform);
+            sphereNodeInstanceLineStart.GetComponent<MeshRenderer>().material = currentColour;
+            sphereNodeInstanceLineStart.GetComponent<NodeSphereInteractable>().SetSegmentNumber(0);
+            sphereNodeInstanceLineStart.GetComponent<NodeSphereInteractable>().SetNodeNumber(0);
+            sphereNodeInstanceLineStart.GetComponent<NodeSphereInteractable>().SetLineNumber(InteractionManager.Instance.getGlobalLineCounter());
+            sphereNodeInstanceLineStart.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.StartNoteNode);
         }
     }
 
     public void AddPoint()
     {
-        if(Vector3.Distance(indexPos, lastPos) > minDistance)
+        if(Vector3.Distance(indexPos, lastPos) > minDistance && currentLineRenderer != null)
         {
-            if (currentLineRenderer != null)
-            {
-                currentLineRenderer.positionCount++;
-                int posIndex = currentLineRenderer.positionCount - 1;
-                currentLineRenderer.SetPosition(posIndex, indexPos);
-                lastPos = indexPos;
-            }
-            else
-            {
-                Debug.LogError("hmmmm");
-            }
+            currentLineRenderer.positionCount++;
+            currentLineRenderer.SetPosition(currentLineRenderer.positionCount - 1, indexPos);
+            lastPos = indexPos;
+        }
+        else if (currentLineRenderer == null)
+        {
+            Debug.LogError("current line renderer null");
         }
     }
 
@@ -178,9 +142,8 @@ public class Draw_Line : MonoBehaviour
     {
         StopDrawing(true);
         GameObject brushInstance = Instantiate(brushUser);
-        currentLineRenderer = brushInstance.GetComponent<LineRenderer>(); //<LineRenderer>
+        currentLineRenderer = brushInstance.GetComponent<LineRenderer>();
         currentLineRenderer.material = currentColour;
-        lastPos = indexPos;
         currentLineRenderer.SetPosition(0, indexPos);
         currentLineRenderer.SetPosition(1, indexPos);
         lastPos = indexPos;
@@ -200,7 +163,7 @@ public class Draw_Line : MonoBehaviour
     void CreateParent()
     {
         groupParent = Instantiate(lineGroupParent);
-        groupParent.transform.name = "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_parent";  // lineCounter
+        groupParent.transform.name = "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_parent"; 
         groupParent.GetComponent<LineGroupScript>().lineNumber = InteractionManager.Instance.getGlobalLineCounter();
         currentLineRenderer.transform.SetParent(groupParent.transform);
         groupParent.transform.SetParent(grandParent.transform);
@@ -211,94 +174,74 @@ public class Draw_Line : MonoBehaviour
         // get current line's points, conv to list
         Vector3[] currentPoints = new Vector3[currentLineRenderer.positionCount];
         currentLineRenderer.GetPositions(currentPoints);
-        List<Vector3> currentPointsList = currentPoints.ToList();
-        List<Vector3> processedPointsList = CurvePreprocess.RemoveDuplicates(currentPointsList);
+        List<Vector3> processedPointsList = CurvePreprocess.RemoveDuplicates(currentPoints.ToList());
 
         // get the bez curve(s)
-        CubicBezier[] curves = CurveFit.Fit(processedPointsList, 0.02f); //currentPointsList
+        CubicBezier[] curves = CurveFit.Fit(processedPointsList, 0.02f);
         groupParent.GetComponent<LineGroupScript>().setCurves(curves);
 
         for (int n = 0; n < curves.Length; n++)
         {
             Vector3[] bezPoints = BezierLineFunctions.BezierInterp(curves[n].p0, curves[n].p1, curves[n].p2, curves[n].p3, 
                                                                     currentLineRenderer, curves.Length);
-
             float dist = Vector3.Distance(curves[n].p0, curves[n].p3);
 
             DrawBezier(bezPoints, groupParent);
             
             if (n > 0 && n < curves.Length) 
             {
-                GameObject sphereNodeInstanceP0;
+                GameObject sphereNodeInstanceAlongLine;
                 
-                if (GameManager.Instance.gameMode == GameManager.GameMode.TMT)
-                {
-                    sphereNodeInstanceP0 = Instantiate(smallNodeNonInteractable);
-                }
-                else
-                {
-                    sphereNodeInstanceP0 = Instantiate(smallNode);
+                if (GameManager.Instance.gameMode == GameManager.GameMode.OpenEnded){
+                    sphereNodeInstanceAlongLine = Instantiate(smallNode);
+                }else{
+                    sphereNodeInstanceAlongLine = Instantiate(smallNodeNonInteractable);
                 }
 
                 //NODE AT START OF EACH SEGEMENT
-                sphereNodeInstanceP0.transform.position = curves[n].p0;
-                sphereNodeInstanceP0.name = "NodeP0_" + "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_Segment_" + segmentCounter;
-                sphereNodeInstanceP0.transform.SetParent(groupParent.transform);
-                sphereNodeInstanceP0.GetComponent<MeshRenderer>().material = currentColour;
-                sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetSegmentNumber(segmentCounter);
-                sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetNodeNumber(0);
-                sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetLineNumber(InteractionManager.Instance.getGlobalLineCounter());
-                sphereNodeInstanceP0.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.SmallNode);
+                sphereNodeInstanceAlongLine.transform.position = curves[n].p0;
+                sphereNodeInstanceAlongLine.name = "NodeP0_" + "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_Segment_" + segmentCounter;
+                sphereNodeInstanceAlongLine.transform.SetParent(groupParent.transform);
+                sphereNodeInstanceAlongLine.GetComponent<MeshRenderer>().material = currentColour;
+                sphereNodeInstanceAlongLine.GetComponent<NodeSphereInteractable>().SetSegmentNumber(segmentCounter);
+                sphereNodeInstanceAlongLine.GetComponent<NodeSphereInteractable>().SetNodeNumber(0);
+                sphereNodeInstanceAlongLine.GetComponent<NodeSphereInteractable>().SetLineNumber(InteractionManager.Instance.getGlobalLineCounter());
+                sphereNodeInstanceAlongLine.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.SmallNode);
             }
 
-            //IF IF THE SEGMENT, ADD NODE TO END
+            //ADD NODE TO END
             if (n == curves.Length - 1)
             {
-                GameObject sphereNodeInstanceP3 = null;
+                GameObject sphereNodeInstanceLineEnd = null;
 
-                if (GameManager.Instance.gameMode == GameManager.GameMode.OpenEnded)
-                {
-                    sphereNodeInstanceP3 = Instantiate(noteNode);
-                }
-                if (GameManager.Instance.gameMode == GameManager.GameMode.TMT)
-                {
-                    sphereNodeInstanceP3 = Instantiate(smallNodeNonInteractable);
+                if (GameManager.Instance.gameMode == GameManager.GameMode.OpenEnded){
+                    sphereNodeInstanceLineEnd = Instantiate(noteNode);
+                } else{
+                    sphereNodeInstanceLineEnd = Instantiate(smallNodeNonInteractable);
                 }
 
-                if (sphereNodeInstanceP3 != null)
+                if (sphereNodeInstanceLineEnd != null)
                 {
-                    sphereNodeInstanceP3.transform.position = curves[n].p3;
-                    sphereNodeInstanceP3.name = "NodeP3_" + "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_Segment_" + segmentCounter;
-                    sphereNodeInstanceP3.transform.SetParent(groupParent.transform);
-                    sphereNodeInstanceP3.GetComponent<MeshRenderer>().material = currentColour;
-                    sphereNodeInstanceP3.GetComponent<NodeSphereInteractable>().SetSegmentNumber(segmentCounter);
-                    sphereNodeInstanceP3.GetComponent<NodeSphereInteractable>().SetNodeNumber(3);
-                    sphereNodeInstanceP3.GetComponent<NodeSphereInteractable>().SetLineNumber(InteractionManager.Instance.getGlobalLineCounter());
+                    sphereNodeInstanceLineEnd.transform.position = curves[n].p3;
+                    sphereNodeInstanceLineEnd.name = "NodeP3_" + "Line_" + InteractionManager.Instance.getGlobalLineCounter() + "_Segment_" + segmentCounter;
+                    sphereNodeInstanceLineEnd.transform.SetParent(groupParent.transform);
+                    sphereNodeInstanceLineEnd.GetComponent<MeshRenderer>().material = currentColour;
+                    sphereNodeInstanceLineEnd.GetComponent<NodeSphereInteractable>().SetSegmentNumber(segmentCounter);
+                    sphereNodeInstanceLineEnd.GetComponent<NodeSphereInteractable>().SetNodeNumber(3);
+                    sphereNodeInstanceLineEnd.GetComponent<NodeSphereInteractable>().SetLineNumber(InteractionManager.Instance.getGlobalLineCounter());
 
-                    if (fromWrist)
-                    {
-                        sphereNodeInstanceP3.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.MiddleNoteNode);
-                    }
-                    else
-                    {
-                        sphereNodeInstanceP3.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.EndNoteNode);
-                    }
+                    if (fromWrist){sphereNodeInstanceLineEnd.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.MiddleNoteNode);}
+                    else{sphereNodeInstanceLineEnd.GetComponent<NodeSphereInteractable>().SetNotdeType(NodeSphereInteractable.NodeType.EndNoteNode);}
                 }
             }
-            
             segmentCounter++;
-            
         }
         segmentCounter = 0;
-        InteractionManager.Instance.incrementGlobalLineCounter(); //lineCounter++
+        InteractionManager.Instance.incrementGlobalLineCounter();
         Destroy(currentLineRenderer);
         Destroy(brushInstance);
 
-        if (!fromWrist)
-        {
-            grandParent.GetComponent<LineGrandparent>().setup = true;
-        }
-
+        if (!fromWrist){ grandParent.GetComponent<LineGrandparent>().setup = true;}
     }
 
     //CREATE A NEW LINE RENDERER FOR THE SEGMENT, SET POINTS OF BEZ CURVE AND GROUP TO PARENT
@@ -311,10 +254,7 @@ public class Draw_Line : MonoBehaviour
 
         for (int k = 0; k < bezSegmentPoints.Length; k++)
         {
-            if (k > 1)
-            {
-                bezierLineRenderer.positionCount++;
-            }
+            if (k > 1){ bezierLineRenderer.positionCount++; }
             bezierLineRenderer.SetPosition(k, bezSegmentPoints[k]);
         }
 
@@ -323,19 +263,15 @@ public class Draw_Line : MonoBehaviour
         if (meshColliderEnabled)
         {
             bezierLineRenderer.useWorldSpace = false;
-
             MeshCollider meshCollider = brushInstance.AddComponent<MeshCollider>();
             Mesh mesh = new Mesh();
             bezierLineRenderer.startWidth = 0.05f;
             bezierLineRenderer.endWidth = 0.05f;
-
             bezierLineRenderer.BakeMesh(mesh);
             meshCollider.sharedMesh = mesh;
-            bezierLineRenderer.startWidth = 0.008f;  //0.01
+            bezierLineRenderer.startWidth = 0.008f; 
             bezierLineRenderer.endWidth = 0.008f;
-
             meshCollider.sharedMesh.name = "Mesh_" + bezierLineRenderer.name;
-
         }
         bezierLineRenderer = null;
     }
