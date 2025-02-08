@@ -1,4 +1,8 @@
-# SoundShaping: A Creative Art Therapy Activity in Augmented Reality for Neurodevelopmental Disorders
+# SoundShaping
+## A Creative Art Therapy Activity in Augmented Reality for Neurodevelopmental Disorders
+### Thesis Project Music & Acoustic Engineering
+#### Conducted at i3Lab, Politecnic di Milano
+#### Grade Awarded: 7/7
 
 Have a read:
 - [Thesis](https://drive.google.com/file/d/1nowwdGHTUXjbxAIOSJBoOaD5fLPqJFBH/view?usp=sharing)
