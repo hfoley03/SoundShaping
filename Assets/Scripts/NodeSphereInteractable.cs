@@ -10,9 +10,7 @@ using UnityEngine.XR;
 public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.ObjectManipulator
 {
     private Vector3 currentPoisition;
-    private int segmentNumber;
-    private int nodeNumber;
-    private int lineNumber;
+    private int segmentNumber,nodeNumber,lineNumber;
 
     private GameObject line1 = null;
     private GameObject line2 = null;
@@ -29,20 +27,15 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
         EndNoteNode,
         SmallNode
     }
-
     private NodeType nodeType;
     private string handed;
 
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
     {
         if (GameManager.Instance.drawnVisible)
         {
-
             if (InteractionManager.Instance.getCurrentState() == InteractionManager.InteractionState.Drawing || InteractionManager.Instance.getCurrentState() == InteractionManager.InteractionState.Idle)
             {
                 // node cannot be moved if state is drawing or idle
@@ -92,7 +85,7 @@ public class NodeSphereInteractable : MixedReality.Toolkit.SpatialManipulation.O
             }
             else
             {
-                true if node is not grab selected
+                //true if node is not grab selected
                 AllowedManipulations = MixedReality.Toolkit.TransformFlags.None;
 
                 if (transform.TryGetComponent<Rigidbody>(out Rigidbody rigi))

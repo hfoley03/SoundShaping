@@ -36,17 +36,7 @@ public class LineManager : MonoBehaviour
     {
         _instance = this;
         currentState = InteractionState.Idle;
-        SayHello();
-    }
-
-    public void SayHello()
-    {
-        Debug.Log("hi from the line manager");
-    }
-
-    void Start()
-    {
-        
+        Debug.Log("hi from the line manager");    
     }
 
     public InteractionState getCurrentState()
