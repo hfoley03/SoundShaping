@@ -1,5 +1,10 @@
 # SoundShaping: A Creative Art Therapy Activity in Augmented Reality for Neurodevelopmental Disorders
 
+Have a read:
+- [Thesis](https://drive.google.com/file/d/1nowwdGHTUXjbxAIOSJBoOaD5fLPqJFBH/view?usp=sharing)
+- [Executive Summary](https://drive.google.com/file/d/1YiPZeVluO9wOEzyRvv8u9xBRbw5y9d_0/view?usp=sharing)
+- CHI Paper on request
+
 ## Overview
 SoundShaping is an augmented reality (AR) application designed to promote creative expression and art therapy, specifically for individuals with neurodevelopmental disorders such as Autism Spectrum Disorder (ASD). The system leverages the Microsoft Hololens 2 and incorporates interactive drawing, sculpting, and musical composition to provide a multi-sensory, immersive experience.
 
