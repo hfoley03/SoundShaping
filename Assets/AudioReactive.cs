@@ -5,14 +5,8 @@ using UnityEngine;
 public class AudioReactive : MonoBehaviour
 {
     private Color offColor;
-    private Color onColor;
+    private readonly Color onColor = Color.white;
     private bool firstTime = true;
-
-    void Start()
-    {
-        onColor = Color.white;
-    }
-
     private Coroutine timerCoroutine;
 
     public void startTimer() {
@@ -29,22 +23,18 @@ public class AudioReactive : MonoBehaviour
 
         while (elapsedTime < duration) {
             elapsedTime += Time.deltaTime;
-            float colourTrans = Mathf.Clamp((1.0f - elapsedTime/2.0f), 0.0f, 0.5f);
-            modMaterial(colourTrans);
+            float transitionValue = Mathf.Clamp((1.0f - elapsedTime/2.0f), 0.0f, 0.5f);
+            modMaterial(transitionValue);
             yield return null;
         }
     }
-    void modMaterial(float swell_)
+    void modMaterial(float transitionValue)
     {
-        if(firstTime == true)
-        {
+        if(firstTime == true){
             offColor = gameObject.GetComponent<MeshRenderer>().material.GetColor("_Color");
             firstTime = false;
         }
-        Color lerpColor = Color.Lerp(offColor, onColor, swell_);
+        Color lerpColor = Color.Lerp(offColor, onColor, transitionValue);
         gameObject.GetComponent<MeshRenderer>().material.SetColor("_Color", lerpColor);
     }
-
-
-
 }
