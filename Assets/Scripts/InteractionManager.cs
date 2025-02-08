@@ -17,7 +17,6 @@ public class InteractionManager : MonoBehaviour
         {
             if (_instance == null)
                 Debug.LogError("Interaction Manager is NUll!");
-
             return _instance;
         }
     }
@@ -33,28 +32,22 @@ public class InteractionManager : MonoBehaviour
     private float rightPinchAmount = 0.0f;
 
     public GameObject handSphere;
-    HandJointPose leftPoseIndexTip;
-    HandJointPose leftWritstPose;
-    HandJointPose rightPoseIndexTip;
-    HandJointPose rightWritstPose;
+    public GameObject wristRotationCube;
 
-    public GameObject rightDrawObject;
+    private HandJointPose leftPoseIndexTip, rightPoseIndexTip;
+    private HandJointPose leftWritstPose, rightWritstPose;
 
-    public Draw_Line rightDrawLineScript;
-
-    public GameObject leftDrawObject;
-
-    public Draw_Line leftDrawLineScript;
+    public GameObject leftDrawObject, rightDrawObject;
+    public Draw_Line leftDrawLineScript, rightDrawLineScript;
 
     private int globalLineCounter = 0;
     private int globalGrandParentCounter = 0;
-    public GameObject currentStateCube;
-    public GameObject leftStateCube;
-    public GameObject rightStateCube;
+    public GameObject currentStateCube, leftStateCube, rightStateCube
 
     public bool finishedSculpting = true;
     private float coolDownTimer = 0.0f;
     private float coolDownAmount = 2.0f; //.25
+    private int numberTimesSculptFinished = 0;
 
     private float lastAngleL = 0.0f;
     private float lastAngleR = 0.0f;
@@ -65,12 +58,8 @@ public class InteractionManager : MonoBehaviour
     private float durationNodeSpawn = 0.5f;
     private float timerNodeSpawn = 0f;
     private bool nodeSpawnAllowed = true;
-
-    private int numberTimesSculptFinished = 0;
-
+    
     public float armLength = 0.5f;
-
-    public GameObject wristRotationCube;
 
     public GameObject TMT_Collider_Ball;
     GameObject _TMT_Collider_Ball;
@@ -86,8 +75,7 @@ public class InteractionManager : MonoBehaviour
         Sculpting,
     }
 
-    public InteractionState rhState;
-    public InteractionState lhState;
+    public InteractionState lhState, rhState;
     private InteractionState systemState;
 
     private void Awake()
@@ -116,18 +104,14 @@ public class InteractionManager : MonoBehaviour
         XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(leftHandNode, out leftIsReadyPinch, out leftIsPinch, out leftPinchAmount);
         XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(rightHandNode, out rightIsReadyPinch, out rightIsPinch, out rightPinchAmount);
 
-        if (finishedSculpting == false)
-        {
-            // if is true if we have not finished sculpting
-            // just stopped sculpting wait a moment before being able to draw 
-            sculptCoolDown();
-        }
+        // true if we have not finished sculpting
+        // wait a moment before being able to draw 
+        if (finishedSculpting == false){ sculptCoolDown();}
 
         if (systemState != InteractionState.Sculpting && finishedSculpting == true)
         {
-            //true if idle or drawing & finishee sculpting
-                RightHand(rightPinchAmount);
-                LeftHand(leftPinchAmount);
+            RightHand(rightPinchAmount);
+            LeftHand(leftPinchAmount);
         }
 
         timer += Time.deltaTime;
@@ -139,6 +123,7 @@ public class InteractionManager : MonoBehaviour
             degreeDiff(leftHandNode, leftWritstPose.Rotation.eulerAngles.z, 30.0f);
         }
 
+        // limiting how often nodes can be drawn
         if (!nodeSpawnAllowed)
         {
             timerNodeSpawn += Time.deltaTime;
@@ -150,130 +135,78 @@ public class InteractionManager : MonoBehaviour
             }
         }
 
+        // debugging purposes 
         currentStateCubeColour();
         leftStateCubeColour();
         rightStateCubeColour();
 
-        if(rhState == InteractionState.Sculpting && lhState == InteractionState.Sculpting)
-        {
-            //block overlapsolvers
-            allowOveralSolver = false;
-        }
-        else 
-        {
-            //allow
-            allowOveralSolver = true;
-        }
+        allowOveralSolver = !(rhState == InteractionState.Sculpting && lhState == InteractionState.Sculpting);
     }
 
-
-
-    void RightHand(float pinchAmount)
+    void HandleHandInteraction(float pinchAmount, ref InteractionState handState, GameObject handDrawLineScript, GameObject TMT_Collider_Ball, ref Vector3 indexTipPos, GameObject handNode, ref bool nodeSpawnAllowed, ref InteractionState systemState, bool isRightHand)
     {
-        float handY = Camera.main.transform.position.y - rightPoseIndexTip.Position.y;
+        float handY = Camera.main.transform.position.y - indexTipPos.y;
 
-        if ((pinchAmount > 0.8f) && rhState != InteractionState.Sculpting && (handY < armLength))  // rightIsPinch
+        if ((pinchAmount > 0.8f) && handState != InteractionState.Sculpting && (handY < armLength))  // Hand is pinching
         {
-            Vector3 brushPosition = rightPoseIndexTip.Position;
+            // Update brush position
+            Vector3 brushPosition = indexTipPos;
 
             if (GameManager.Instance.gameMode == GameManager.GameMode.TMT)
             {
-                float dist = Vector3.Distance(TMTManager.Instance.origin, brushPosition);
-                if (dist < TMT_brushSnapDist)
+                // fix z position if within certain dist of tmt nodes
+                if (Vector3.Distance(TMTManager.Instance.origin, brushPosition) < TMT_brushSnapDist)
                 {
-                    brushPosition = new Vector3(rightPoseIndexTip.Position.x, rightPoseIndexTip.Position.y, (TMTManager.Instance.origin.z + 0.005f));
+                    brushPosition = new Vector3(brushPosition.x, brushPosition.y, (TMTManager.Instance.origin.z + 0.005f));
                 }
                 TMT_Collider_Ball.transform.position = brushPosition;
             }
 
-            rightDrawLineScript.SetPosition(brushPosition);
+            // Set brush position for drawing
+            handDrawLineScript.SetPosition(brushPosition);
 
             if (finishedSculpting)
             {
-                if (rhState == InteractionState.Idle && systemState == InteractionState.Idle)
+                if (handState == InteractionState.Idle && systemState == InteractionState.Idle)
                 {
-                    //create brush
-                    rhState = InteractionState.Drawing;
+                    // Create brush
+                    handState = InteractionState.Drawing;
                     systemState = InteractionState.Drawing;
-                    rightDrawLineScript.CreateBrush();
+                    handDrawLineScript.CreateBrush();
                 }
-                else if (rhState == InteractionState.Drawing)
+                else if (handState == InteractionState.Drawing)
                 {
-                    rightDrawLineScript.AddPoint();
-
-                    if (rightDrawLineScript.currentLineRenderer.positionCount % 5 == 0 && nodeSpawnAllowed)
+                    handDrawLineScript.AddPoint();
+                    if (handDrawLineScript.currentLineRenderer.positionCount % 5 == 0 && nodeSpawnAllowed)
                     {
-
-                        if (degreeDiff(rightHandNode, rightWritstPose.Rotation.eulerAngles.z, 30.0f))
+                        if (degreeDiff(handNode, isRightHand ? rightWristPose.Rotation.eulerAngles.z : leftWristPose.Rotation.eulerAngles.z, 30.0f))
                         {
-                            rightDrawLineScript.WristSplit();
+                            handDrawLineScript.WristSplit();
                             nodeSpawnAllowed = false;
                         }
                     }
                 }
             }
         }
-        else if (rhState == InteractionState.Drawing) //right hand was drawing but is no longer pinching 
+        else if (handState == InteractionState.Drawing) // Hand was drawing but is no longer pinching
         {
-            //Stop Drawing
-            rhState = InteractionState.Idle;
+            // Stop Drawing
+            handState = InteractionState.Idle;
             systemState = InteractionState.Idle;
-            rightDrawLineScript.StopDrawing(false);
+            handDrawLineScript.StopDrawing(false);
         }
+    }
+
+    void RightHand(float pinchAmount)
+    {
+        HandleHandInteraction(pinchAmount, ref rhState, rightDrawLineScript, TMT_Collider_Ball, rightPoseIndexTip.Position, rightHandNode, ref nodeSpawnAllowed, ref systemState, true);
     }
 
     void LeftHand(float pinchAmount)
     {
-        float handY = Camera.main.transform.position.y - leftPoseIndexTip.Position.y;
-
-        if ((pinchAmount > 0.8f) && lhState != InteractionState.Sculpting && (handY < armLength))
-            Vector3 brushPos = leftPoseIndexTip.Position;
-            if (GameManager.Instance.gameMode == GameManager.GameMode.TMT)
-            {
-                float dist = Vector3.Distance(TMTManager.Instance.origin, brushPos);
-                if (dist < TMT_brushSnapDist)
-                {
-                    brushPos = new Vector3(leftPoseIndexTip.Position.x, leftPoseIndexTip.Position.y, (TMTManager.Instance.origin.z + 0.005f));
-                }
-                TMT_Collider_Ball.transform.position = brushPos;
-            }
-
-            leftDrawLineScript.SetPosition(brushPos); // + offsetVec
-
-            if (finishedSculpting)
-            {
-                if (lhState == InteractionState.Idle && systemState == InteractionState.Idle)
-                {
-                    //create brush
-                    lhState = InteractionState.Drawing;
-                    systemState = InteractionState.Drawing;
-                    leftDrawLineScript.CreateBrush();
-                }
-                else if (lhState == InteractionState.Drawing)
-                {
-
-                    leftDrawLineScript.AddPoint();
-
-                    if (leftDrawLineScript.currentLineRenderer.positionCount % 5 == 0 && nodeSpawnAllowed)
-                    {
-                        if (degreeDiff(leftHandNode, leftWritstPose.Rotation.eulerAngles.z, 30.0f))
-                        {
-
-                            leftDrawLineScript.WristSplit();
-                            nodeSpawnAllowed = false;
-                        }
-                    }
-                }
-            }
-        }
-        else if (lhState == InteractionState.Drawing) //right hand was drawing but is no longer pinching 
-        {
-            //Stop Drawing
-            lhState = InteractionState.Idle;
-            currentState = InteractionState.Idle;
-            leftDrawLineScript.StopDrawing(false);
-        }
+        HandleHandInteraction(pinchAmount, ref lhState, leftDrawLineScript, TMT_Collider_Ball, leftPoseIndexTip.Position, leftHandNode, ref nodeSpawnAllowed, ref systemState, false);
     }
+
 
     public InteractionState getCurrentState()
     {
@@ -306,58 +239,36 @@ public class InteractionManager : MonoBehaviour
     }
 
 
-    void currentStateCubeColour()
+    void SetCubeColorBasedOnState(GameObject cube, InteractionState state)
     {
-        switch (currentState)
-        {
-            case InteractionState.Idle:
-                //set col;
-                currentStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
-                break;
+        Color color = Color.black;
+
+        switch (state)
+        {            
             case InteractionState.Drawing:
-                //set coll
-                currentStateCube.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
+                color = Color.red;
                 break;
             case InteractionState.Sculpting:
-                currentStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 255);
+                color = Color.blue;
                 break;
         }
+
+        cube.GetComponent<Renderer>().material.color = color;
+    }
+
+    void currentStateCubeColour()
+    {
+        SetCubeColorBasedOnState(currentStateCube, currentState);
     }
 
     void rightStateCubeColour()
     {
-        switch (rhState)
-        {
-            case InteractionState.Idle:
-                //set col;
-                rightStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
-                break;
-            case InteractionState.Drawing:
-                //set coll
-                rightStateCube.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
-                break;
-            case InteractionState.Sculpting:
-                rightStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 255);
-                break;
-        }
+        SetCubeColorBasedOnState(rightStateCube, rhState);
     }
 
     void leftStateCubeColour()
     {
-        switch (lhState)
-        {
-            case InteractionState.Idle:
-                //set col;
-                leftStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
-                break;
-            case InteractionState.Drawing:
-                //set coll
-                leftStateCube.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
-                break;
-            case InteractionState.Sculpting:
-                leftStateCube.GetComponent<Renderer>().material.color = new Color(0, 0, 255);
-                break;
-        }
+        SetCubeColorBasedOnState(leftStateCube, lhState);
     }
 
     // timer used to temp block drawing  after sculpting
@@ -400,13 +311,5 @@ public class InteractionManager : MonoBehaviour
         }
         return changed;
     }
-    /*
-    void HeadHandAngle()
-    {
-    Vector3 headToHand = rightPoseIndexTip.Position - Camera.main.transform.position; 
-    Vector3 headToControl = 
-    }
-    */
-
 
 }
